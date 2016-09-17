@@ -70,8 +70,10 @@ public class SelectFragment extends Fragment {
             // TODO: 17.09.16 do search
             BaseApplication application = (BaseApplication) getActivity().getApplication();
             Location location = application.getLocation();
-            String lat = String.valueOf(location.getLatitude());
-            String lng = String.valueOf(location.getLongitude());
+//            String lat = String.valueOf(location.getLatitude());
+            String lat = String.valueOf(Constants.GPS_LAT_ZURICH);
+//            String lng = String.valueOf(location.getLongitude());
+            String lng = String.valueOf(Constants.GPS_LNG_ZURICH);
             String place = input_location1.getText().toString();
             MainActivity mainActivity = (MainActivity) getActivity();
             mainActivity.showLoadingIndicator();

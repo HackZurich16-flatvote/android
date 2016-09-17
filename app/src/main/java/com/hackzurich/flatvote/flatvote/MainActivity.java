@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.content, new SelectFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.content, new LoginFragment()).commit();
 
 
         // Create a GoogleApiClient instance
@@ -113,9 +113,6 @@ public class MainActivity extends AppCompatActivity
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
-
-
-        startLocationUpdates();
     }
 
 
@@ -210,7 +207,8 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-        Toast.makeText(this, "connected", Toast.LENGTH_SHORT).show();
+//        startLocationUpdates();
+
     }
 
     @Override

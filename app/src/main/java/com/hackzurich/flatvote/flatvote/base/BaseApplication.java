@@ -18,6 +18,8 @@ public class BaseApplication extends MultiDexApplication {
     private Item item;
 
 
+
+
     @Override
     public void onCreate() {
         super.onCreate();
