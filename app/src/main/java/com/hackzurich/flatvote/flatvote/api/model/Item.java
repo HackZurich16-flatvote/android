@@ -33,7 +33,7 @@ public class Item {
     private Integer advertisementId;
     @SerializedName("travelTimes")
     @Expose
-    private TravelTimes travelTimes;
+    private ArrayList<Float> travelTimes;
 
     /**
      * 
@@ -166,16 +166,16 @@ public class Item {
      * @return
      *     The travelTimes
      */
-    public TravelTimes getTravelTimes() {
+    public ArrayList<Float> getTravelTimes() {
         return travelTimes;
     }
 
     /**
-     * 
+     *
      * @param travelTimes
      *     The travelTimes
      */
-    public void setTravelTimes(TravelTimes travelTimes) {
+    public void setTravelTimes(ArrayList<Float> travelTimes) {
         this.travelTimes = travelTimes;
     }
 
