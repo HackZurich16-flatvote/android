@@ -21,8 +21,8 @@ public class RestService {
         this.service = retrofit.create(RestServiceDefinition.class);
     }
 
-    public Response<Item> getOfferign(long id) {
-        return service.getEntry(id);
+    public Response<Item> getOffering(long id, String place) {
+        return service.getEntry(id, place);
     }
 
     public Observable<Response<FlatvoteMessageResponse>> getOfferings(String uid, String lat, String lng) {

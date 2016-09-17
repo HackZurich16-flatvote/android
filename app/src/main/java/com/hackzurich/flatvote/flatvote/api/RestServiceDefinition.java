@@ -16,7 +16,7 @@ public interface RestServiceDefinition {
 
 
     @GET("realEstates/{id}")
-    Response<Item> getEntry(@Path("id") long id);
+    Response<Item> getEntry(@Path("id") long id, @Query("place") String place);
 
     @GET("realEstates/{uid}")
     Observable<Response<FlatvoteMessageResponse>> getEntries(@Path("uid") String uid, @Query("longitude") String lat, @Query("latitude") String lng);
