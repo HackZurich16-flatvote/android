@@ -22,7 +22,7 @@ android {
 
 
     defaultConfig {
-            applicationId "com.hackzurich.flatvote.flatvote"
+        applicationId "com.hackzurich.flatvote.flatvote"
         minSdkVersion 14
         targetSdkVersion 24
         versionCode 1
@@ -59,8 +59,13 @@ dependencies {
     compile 'com.google.android.gms:play-services:9.4.0'
     compile 'com.google.android.gms:play-services-location:9.4.0'
     compile 'com.google.android.gms:play-services-maps:9.4.0'
+//    compile 'com.google.firebase:firebase-core:9.4.0'
+//    compile 'com.google.firebase:firebase-messaging:9.4.0'
+//    compile 'com.google.firebase:firebase-database:9.4.0'
+
+
     compile 'com.jakewharton:butterknife:8.4.0'
-    apt 'com.jakewharton:butterknife-compiler:8.4.0'
+//    apt 'com.jakewharton:butterknife-compiler:8.4.0'
 
 
     // Network
@@ -74,7 +79,7 @@ dependencies {
     provided 'javax.annotation:jsr250-api:1.0'
 
     compile 'com.github.rahatarmanahmed:circularprogressview:2.5.0'
-    apply plugin: 'com.google.gms.google-services'
+
 
 
     compile 'com.google.code.gson:gson:2.6.2'
@@ -82,3 +87,4 @@ dependencies {
     compile 'io.reactivex:rxjava:1.1.6'
     compile 'com.squareup.okhttp3:okhttp:3.4.1'
 }
+apply plugin: 'com.google.gms.google-services'
