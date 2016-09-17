@@ -73,8 +73,11 @@ public class SelectFragment extends Fragment {
             String lat = String.valueOf(location.getLatitude());
             String lng = String.valueOf(location.getLongitude());
             String place = input_location1.getText().toString();
+            MainActivity mainActivity = (MainActivity) getActivity();
+            mainActivity.showLoadingIndicator();
             restService.getOfferingsWithDistanceCalculation(lat, lng, place).subscribe(
                     flatvoteMessageResponseResponse -> {
+                        mainActivity.dismissLoadingIndicator();
 
                         for (Item item : flatvoteMessageResponseResponse.body().getItems()) {
                             Log.d(this.getClass().getSimpleName(), item.getCity());
@@ -86,6 +89,7 @@ public class SelectFragment extends Fragment {
 
                         // TODO: 17.09.16 work with those elements
                     }, throwable -> {
+                        mainActivity.dismissLoadingIndicator();
                         Log.d(this.getClass().getSimpleName(), "onError", throwable);
                         Toast.makeText(getActivity(), "An Error occured - I'm so sorry", Toast.LENGTH_SHORT).show();
 

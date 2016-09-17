@@ -16,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -34,6 +35,9 @@ import com.hackzurich.flatvote.flatvote.utils.dagger.module.FirebaseService;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, LocationListener, GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks {
 
@@ -42,6 +46,9 @@ public class MainActivity extends AppCompatActivity
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
 
+
+    @BindView(R.id.loading_indicator)
+    View loadingIndicator;
 
     @Inject
     protected FirebaseService firebaseService;
@@ -59,6 +66,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -71,7 +79,6 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
 
         getSupportFragmentManager().beginTransaction().replace(R.id.content, new SelectFragment()).commit();
 
@@ -125,6 +132,14 @@ public class MainActivity extends AppCompatActivity
 
     public void replaceFragment(Fragment fragment) {
         getSupportFragmentManager().beginTransaction().replace(R.id.content, fragment).commit();
+    }
+
+    public void showLoadingIndicator() {
+        loadingIndicator.setVisibility(View.VISIBLE);
+    }
+
+    public void dismissLoadingIndicator() {
+        loadingIndicator.setVisibility(View.GONE);
     }
 
     @Override

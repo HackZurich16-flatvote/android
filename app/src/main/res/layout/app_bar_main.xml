@@ -6,29 +6,40 @@
     android:layout_height="match_parent"
     tools:context="com.hackzurich.flatvote.flatvote.MainActivity">
 
+
+    <RelativeLayout
+        android:id="@+id/loading_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_toRightOf="@id/loading_indicator_animation"
+            android:text="Loading..." />
+
+        <com.github.rahatarmanahmed.cpv.CircularProgressView
+            android:layout_alignParentRight="true"
+            android:id="@+id/loading_indicator_animation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+    </RelativeLayout>
+
     <FrameLayout
         android:id="@+id/content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-
-    </FrameLayout>
+        android:layout_height="match_parent" />
 
     <android.support.v7.widget.Toolbar
-        android:visibility="gone"
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
+        android:visibility="gone"
         app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-
-        <TextView
-            android:visibility="gone"
-            android:padding="30dp"
-            android:layout_below="@id/toolbar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hello World!" />
 
 </RelativeLayout>
