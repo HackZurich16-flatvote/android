@@ -46,6 +46,9 @@ public class YesNoActivity extends Activity {
     @BindView(R.id.title_text)
     TextView title_text;
 
+    @BindView(R.id.travelTimeWork)
+    TextView duration;
+
     @BindView(R.id.description_text)
     TextView description_text;
 
@@ -108,7 +111,7 @@ public class YesNoActivity extends Activity {
 
         title_text.setText(item.getTitle());
         description_text.setText(item.getDescription());
-
+        duration.setText(item.getTravelTimes().get(0)+"");
         like.setOnClickListener(v -> {
             firebaseService.downVote(item.getAdvertisementId());
             reload();
@@ -117,7 +120,7 @@ public class YesNoActivity extends Activity {
             firebaseService.upVote(item.getAdvertisementId());
             reload();
         });
-        initUIEffects();
+     //   initUIEffects();
     }
 
     private void reload() {

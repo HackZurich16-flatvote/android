@@ -55,6 +55,12 @@
                 android:layout_height="wrap_content"
                 android:text="description_text" />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/travelTimeWork"
+                android:text="duration"/>
+
         </LinearLayout>
     </ScrollView>
 
