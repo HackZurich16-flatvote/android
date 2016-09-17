@@ -11,6 +11,6 @@ import rx.Observable;
 public interface ServiceDefinition {
 
 
-    @GET("unknownPath")
-    Observable<Response<Void>> getEntries(@Path("lat") String lat, @Path("lng") String lng, @Path("page") String page);
+    @GET("/realEstates")
+    Observable<Response<Void>> getEntries(@Path("longitude") String lat, @Path("latitude") String lng);
 }

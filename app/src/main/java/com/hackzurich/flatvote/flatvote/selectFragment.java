@@ -18,7 +18,7 @@ public class selectFragment extends Fragment {
 
 
 
-    @BindView(R.id.btn_login)
+    @BindView(R.id.btn_search)
     AppCompatButton button1;
 
     @Nullable
