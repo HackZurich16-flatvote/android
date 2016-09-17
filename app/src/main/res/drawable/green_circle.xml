@@ -10,6 +10,6 @@
             android:height="120dp"/>
     </shape>
 </item>
-<item android:drawable="@drawable/ic_thumb_up_black_24dp" android:top="20dp" android:bottom="20dp"
-    android:right="20dp" android:left="20dp"/>
+<item android:drawable="@drawable/ic_thumb_up_black_24dp" android:top="30dp" android:bottom="30dp"
+    android:right="30dp" android:left="30dp"/>
 </layer-list>

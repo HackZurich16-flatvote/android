@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.hackzurich.flatvote.flatvote.api.RestService;
@@ -29,6 +30,14 @@ public class YesNoActivity extends Activity{
 
     @BindView(R.id.carouselView)
     CarouselView carouselView;
+
+    @BindView(R.id.title_text)
+    TextView title_text;
+
+    @BindView(R.id.description_text)
+    TextView description_text;
+
+
     private Item item;
 
     public YesNoActivity() {
@@ -55,6 +64,10 @@ public class YesNoActivity extends Activity{
             carouselView.setPageCount(item.getPictures().size());
             carouselView.setImageListener(imageListener);
         }
+
+        title_text.setText(item.getTitle());
+        description_text.setText(item.getDescription());
+
     }
 
     ImageListener imageListener = new ImageListener() {
