@@ -100,8 +100,7 @@ public class SelectFragment extends Fragment {
     }
 
     private void showDialogForItem(Item item) {
-        SelectionDialog dialog = new SelectionDialog();
-        dialog.setItem(item);
+        SelectionDialog dialog = new SelectionDialog(item);
         dialog.show(getActivity().getSupportFragmentManager(), "selectiondialog");
     }
 }
