@@ -1,12 +1,21 @@
 package com.hackzurich.flatvote.flatvote;
 
+import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatButton;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.hackzurich.flatvote.flatvote.api.Service;
+import com.hackzurich.flatvote.flatvote.api.model.Item;
+import com.hackzurich.flatvote.flatvote.base.BaseApplication;
+import com.hackzurich.flatvote.flatvote.utils.dagger.component.AppComponent;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -20,6 +29,14 @@ public class SelectFragment extends Fragment {
 
     @BindView(R.id.btn_search)
     AppCompatButton button1;
+
+    @Inject
+    Service service;
+
+
+    public SelectFragment() {
+        AppComponent.Holder.getAppComponent().inject(this);
+    }
 
     @Nullable
     @Override
@@ -40,7 +57,28 @@ public class SelectFragment extends Fragment {
     private View.OnClickListener createClickListener() {
         return v -> {
             // TODO: 17.09.16 do search
+            BaseApplication application = (BaseApplication) getActivity().getApplication();
+            Location location = application.getLocation();
+            service.register(String.valueOf(location.getLatitude()), String.valueOf(location.getLongitude())).subscribe(flatvoteMessageResponseResponse -> {
+                for (Item item : flatvoteMessageResponseResponse.body().getItems()) {
+                    Log.d(this.getClass().getSimpleName(), item.getCity());
+                }
+
+                if (flatvoteMessageResponseResponse.body().getItems().size() > 0) {
+                    showDialogForItem(flatvoteMessageResponseResponse.body().getItems().get(0));
+                }
+            }, throwable -> {
+                Log.d(this.getClass().getSimpleName(), "onError");
+                Log.d(this.getClass().getSimpleName(), "onError", throwable);
+
+            });
         };
+    }
+
+    private void showDialogForItem(Item item) {
+        SelectionDialog dialog = new SelectionDialog();
+        dialog.setItem(item);
+        dialog.show(getActivity().getSupportFragmentManager(), "selectiondialog");
     }
 }
 
