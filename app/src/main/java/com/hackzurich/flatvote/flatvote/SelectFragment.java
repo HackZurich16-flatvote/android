@@ -1,6 +1,8 @@
 package com.hackzurich.flatvote.flatvote;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -70,12 +72,13 @@ public class SelectFragment extends Fragment {
     private View.OnClickListener createClickListener() {
         return v -> {
             // TODO: 17.09.16 do search
+            saveNamesFromInput();
             BaseApplication application = (BaseApplication) getActivity().getApplication();
             Location location = application.getLocation();
-//            String lat = String.valueOf(location.getLatitude());
-            String lat = String.valueOf(Constants.GPS_LAT_ZURICH);
-//            String lng = String.valueOf(location.getLongitude());
-            String lng = String.valueOf(Constants.GPS_LNG_ZURICH);
+            String lat = String.valueOf(location.getLatitude());
+//            String lat = String.valueOf(Constants.GPS_LAT_ZURICH);
+            String lng = String.valueOf(location.getLongitude());
+//            String lng = String.valueOf(Constants.GPS_LNG_ZURICH);
             String place = input_location1.getText().toString();
             MainActivity mainActivity = (MainActivity) getActivity();
             mainActivity.showWaitingScreen();
@@ -100,6 +103,11 @@ public class SelectFragment extends Fragment {
 
                     });
         };
+    }
+
+    private void saveNamesFromInput() {
+        SharedPreferences pref = getActivity().getSharedPreferences(Constants.KEY_SHAREDPREFERENCES, Context.MODE_PRIVATE);
+        pref.edit().putString(Constants.KEY_USERPREF, input_location1.getText().toString()).commit();
     }
 
     private void showDialogForItem(List<Item> item) {
