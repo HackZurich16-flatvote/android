@@ -11,8 +11,9 @@ import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-import com.hackzurich.flatvote.flatvote.MainActivity;
+import com.hackzurich.flatvote.flatvote.Constants;
 import com.hackzurich.flatvote.flatvote.R;
+import com.hackzurich.flatvote.flatvote.YesNoActivity;
 
 /**
  * Created by longstone on 17/09/16.
@@ -49,19 +50,20 @@ public class AnotherFirebaseMessagingService extends FirebaseMessagingService {
         }
 
 
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, YesNoActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
                 PendingIntent.FLAG_ONE_SHOT);
-        String adId =remoteMessage.getData().get("advertisementId");
+        String adId = remoteMessage.getData().get("advertisementId");
+        intent.putExtra(Constants.KEY_ADVERTISMENT, adId);
         remoteMessage.getData().get("friendName");
-        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(messageBody)
-             //   .setContentText(messageBody)
+                //   .setContentText(messageBody)
                 .setAutoCancel(true)
-                .setSound(defaultSoundUri)
+                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                 .setContentIntent(pendingIntent);
 
         NotificationManager notificationManager =

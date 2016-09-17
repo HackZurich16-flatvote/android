@@ -1,9 +1,9 @@
 package com.hackzurich.flatvote.flatvote;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -26,7 +26,7 @@ import butterknife.ButterKnife;
  * Created by christof on 17.09.16.
  */
 
-public class YesNoActivity extends Activity{
+public class YesNoActivity extends Activity {
 
     @Inject
     RestService restService;
@@ -64,13 +64,36 @@ public class YesNoActivity extends Activity{
         setContentView(R.layout.activity_yesno);
         ButterKnife.bind(this);
 
-    //    BaseApplication application = (BaseApplication) getApplication();
-    //    item = application.getItem();
-        
-        if (item == null) {
-            finish();
+        Bundle extras = getIntent().getExtras();
+        String itemid = null;
+        if (extras != null) {
+            Log.i("dd", "Extra:" + extras.getString(Constants.KEY_ADVERTISMENT));
+            itemid = extras.getString(Constants.KEY_ADVERTISMENT);
         }
 
+
+        if (itemid != null && itemid.length() > 0) {
+            fetchItemFromServer(itemid);
+        } else {
+            if (item != null) {
+                initView();
+            }
+        }
+    }
+
+    private void fetchItemFromServer(String itemid) {
+        SharedPreferences pref = this.getSharedPreferences(Constants.KEY_SHAREDPREFERENCES, MODE_PRIVATE);
+        String selectedPlace = pref.getString(Constants.KEY_USERPREF, "Zuerich");
+        restService.getOffering(Long.valueOf(itemid), selectedPlace).subscribe(itemResponse -> {
+                    item = itemResponse.body();
+                    initView();
+                }, throwable -> {
+                    // TODO: 18.09.16 handle failed call
+                }
+        );
+    }
+
+    private void initView() {
         carouselView = (CarouselView) findViewById(R.id.carouselView);
         if (carouselView != null) {
             carouselView.setPageCount(item.getPictures().size());
@@ -81,7 +104,7 @@ public class YesNoActivity extends Activity{
         description_text.setText(item.getDescription());
 
         like.setOnClickListener(v -> firebaseService.downVote(item.getAdvertisementId()));
-        dislike.setOnClickListener( v -> firebaseService.upVote(item.getAdvertisementId()));
+        dislike.setOnClickListener(v -> firebaseService.upVote(item.getAdvertisementId()));
     }
 
     ImageListener imageListener = new ImageListener() {

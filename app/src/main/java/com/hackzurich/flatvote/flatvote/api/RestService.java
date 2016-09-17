@@ -21,7 +21,7 @@ public class RestService {
         this.service = retrofit.create(RestServiceDefinition.class);
     }
 
-    public Response<Item> getOffering(long id, String place) {
+    public Observable<Response<Item>> getOffering(long id, String place) {
         return service.getEntry(id, place);
     }
 
