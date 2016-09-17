@@ -44,10 +44,10 @@ public class YesNoActivity extends Activity{
     TextView description_text;
 
     @BindView(R.id.green_circle)
-    Button like;
+    View like;
 
     @BindView(R.id.red_circle)
-    Button dislike;
+    View dislike;
 
 
     private Item item;

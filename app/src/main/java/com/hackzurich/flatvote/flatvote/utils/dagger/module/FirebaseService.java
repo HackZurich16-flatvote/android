@@ -1,5 +1,6 @@
 package com.hackzurich.flatvote.flatvote.utils.dagger.module;
 
+import com.bumptech.glide.load.model.stream.HttpUrlGlideUrlLoader;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.hackzurich.flatvote.flatvote.UglyGlobalHolderObject;
@@ -17,8 +18,7 @@ public class FirebaseService {
 
     public void writeNewUser(String userId, String token) {
         DeviceEntry user = new DeviceEntry(userId, token);
-        String userIdCleaned = userId.replace(".",",");
-        mDatabase.child("users").child(userIdCleaned).setValue(user);
+        mDatabase.child("users").child(getCleanUserId()).setValue(user);
     }
 
     public void writeNewUser(String token){
@@ -30,10 +30,34 @@ public class FirebaseService {
     }
 
     public void downVote(Integer advertisementId) {
-        // TODO micha
+        initVote(false,advertisementId);
     }
 
     public void upVote(Integer advertisementId) {
-        // TODO micha
+       initVote(true,advertisementId);
+    }
+
+    private void initVote(boolean forYes, int advertisementId){
+        DatabaseReference votes = mDatabase.child("votes");
+        DatabaseReference vote = votes.push();
+        DatabaseReference ad = vote.child("advertisementId");
+        ad.setValue(Integer.toString(advertisementId));
+        DatabaseReference no = vote.child("no");
+        DatabaseReference yes = vote.child("yes");
+        if(forYes){
+            addUserIdToVote(yes);
+        }else{
+            addUserIdToVote(no);
+        }
+    }
+
+    private void addUserIdToVote(DatabaseReference ref) {
+        DatabaseReference push = ref.push();
+        push.setValue(getCleanUserId());
+    }
+
+    private String getCleanUserId(){
+        String userId =  UglyGlobalHolderObject.getInstance().getMap().get(UglyGlobalHolderObject.USER_ID);
+        return userId.replace(".",",");
     }
 }
