@@ -65,6 +65,7 @@ public class LoginFragment extends Fragment {
             String loginName = email.getText().toString();
             UglyGlobalHashMap.getInstance().put(UglyGlobalHashMap.USER_ID,loginName);
             firebaseService.writeNewUser(loginName, FirebaseInstanceId.getInstance().getToken());
+            ((MainActivity) getActivity()).replaceFragment(new SelectFragment());
         };
     }
 }

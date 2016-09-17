@@ -25,8 +25,8 @@ public class RestService {
         return service.getEntries(lat, lng).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Observable<Response<FlatvoteMessageResponse>> getOfferingsWithDistanceCalculation(String lat, String lng, String place, String placeName) {
-        return service.getEntriesForPlacename(lat, lng, place, placeName).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    public Observable<Response<FlatvoteMessageResponse>> getOfferingsWithDistanceCalculation(String lat, String lng, String place) {
+        return service.getEntriesForPlacename(lat, lng, place).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
 }

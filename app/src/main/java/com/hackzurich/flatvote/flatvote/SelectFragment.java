@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.hackzurich.flatvote.flatvote.api.RestService;
 import com.hackzurich.flatvote.flatvote.api.model.Item;
@@ -26,9 +28,18 @@ import butterknife.ButterKnife;
 public class SelectFragment extends Fragment {
 
 
-
     @BindView(R.id.btn_search)
     AppCompatButton button1;
+
+    @BindView(R.id.input_location1)
+    EditText input_location1;
+
+    @BindView(R.id.input_location2)
+    EditText input_location2;
+
+    @BindView(R.id.input_location3)
+    EditText input_location3;
+
 
     @Inject
     RestService restService;
@@ -59,19 +70,26 @@ public class SelectFragment extends Fragment {
             // TODO: 17.09.16 do search
             BaseApplication application = (BaseApplication) getActivity().getApplication();
             Location location = application.getLocation();
-            restService.getOfferings(String.valueOf(location.getLatitude()), String.valueOf(location.getLongitude())).subscribe(flatvoteMessageResponseResponse -> {
-                for (Item item : flatvoteMessageResponseResponse.body().getItems()) {
-                    Log.d(this.getClass().getSimpleName(), item.getCity());
-                }
+            String lat = String.valueOf(location.getLatitude());
+            String lng = String.valueOf(location.getLongitude());
+            String place = input_location1.getText().toString();
+            restService.getOfferingsWithDistanceCalculation(lat, lng, place).subscribe(
+                    flatvoteMessageResponseResponse -> {
 
-                if (flatvoteMessageResponseResponse.body().getItems().size() > 0) {
-                    showDialogForItem(flatvoteMessageResponseResponse.body().getItems().get(0));
-                }
-            }, throwable -> {
-                Log.d(this.getClass().getSimpleName(), "onError");
-                Log.d(this.getClass().getSimpleName(), "onError", throwable);
+                        for (Item item : flatvoteMessageResponseResponse.body().getItems()) {
+                            Log.d(this.getClass().getSimpleName(), item.getCity());
+                        }
 
-            });
+                        if (flatvoteMessageResponseResponse.body().getItems().size() > 0) {
+                            showDialogForItem(flatvoteMessageResponseResponse.body().getItems().get(0));
+                        }
+
+                        // TODO: 17.09.16 work with those elements
+                    }, throwable -> {
+                        Log.d(this.getClass().getSimpleName(), "onError", throwable);
+                        Toast.makeText(getActivity(), "An Error occured - I'm so sorry", Toast.LENGTH_SHORT).show();
+
+                    });
         };
     }
 
