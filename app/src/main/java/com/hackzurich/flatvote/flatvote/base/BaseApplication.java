@@ -17,8 +17,7 @@ public class BaseApplication extends MultiDexApplication {
 
     private Location location;
     private Item item;
-
-
+    public String username;
 
 
     @Override
