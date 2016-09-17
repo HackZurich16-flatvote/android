@@ -2,10 +2,11 @@ package com.hackzurich.flatvote.flatvote;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -106,6 +107,56 @@ public class YesNoActivity extends Activity {
 
         like.setOnClickListener(v -> firebaseService.downVote(item.getAdvertisementId()));
         dislike.setOnClickListener(v -> firebaseService.upVote(item.getAdvertisementId()));
+
+        initUIEffects();
+    }
+
+    private void initUIEffects() {
+        like.setOnTouchListener((v, event) -> {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN: {
+                    ImageView view = (ImageView) v;
+                    //overlay is black with transparency of 0x77 (119)
+                    view.getDrawable().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
+                    view.invalidate();
+                    break;
+                }
+                case MotionEvent.ACTION_UP:
+                case MotionEvent.ACTION_CANCEL: {
+
+                    ImageView view = (ImageView) v;
+                    //clear the overlay
+                    view.getDrawable().clearColorFilter();
+                    view.invalidate();
+                    break;
+                }
+            }
+
+            return true;
+        });
+
+
+        dislike.setOnTouchListener((v, event) -> {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN: {
+                    ImageView view = (ImageView) v;
+                    //overlay is black with transparency of 0x77 (119)
+                    view.getDrawable().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
+                    view.invalidate();
+                    break;
+                }
+                case MotionEvent.ACTION_UP:
+                case MotionEvent.ACTION_CANCEL: {
+                    ImageView view = (ImageView) v;
+                    //clear the overlay
+                    view.getDrawable().clearColorFilter();
+                    view.invalidate();
+                    break;
+                }
+            }
+
+            return true;
+        });
     }
 
     ImageListener imageListener = new ImageListener() {
