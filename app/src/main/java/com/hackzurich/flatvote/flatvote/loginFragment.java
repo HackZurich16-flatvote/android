@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import butterknife.BindView;
@@ -20,6 +21,8 @@ public class loginFragment extends Fragment {
 
     @BindView(R.id.btn_login)
     protected AppCompatButton button1;
+    @BindView(R.id.input_email)
+    protected EditText email;
 
 
     @Nullable
@@ -42,6 +45,8 @@ public class loginFragment extends Fragment {
         return v -> {
             // TODO: 17.09.16 do login
             Toast.makeText(loginFragment.this.getActivity(),"fuuuubar",Toast.LENGTH_LONG).show();
+            String loginName = email.getText().toString();
+
         };
     }
 }
