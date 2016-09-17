@@ -40,7 +40,6 @@ public class SelectFragment extends Fragment {
     @BindView(R.id.input_location3)
     EditText input_location3;
 
-
     @Inject
     RestService restService;
 
@@ -77,7 +76,8 @@ public class SelectFragment extends Fragment {
             String place = input_location1.getText().toString();
             MainActivity mainActivity = (MainActivity) getActivity();
             mainActivity.showWaitingScreen();
-            restService.getOfferingsWithDistanceCalculation(lat, lng, place).subscribe(
+            String userName = ((BaseApplication) getActivity().getApplication()).username;
+            restService.getOfferingsWithDistanceCalculation(userName, lat, lng, place).subscribe(
                     flatvoteMessageResponseResponse -> {
                         mainActivity.dismissWaitingScreen();
 
@@ -93,7 +93,7 @@ public class SelectFragment extends Fragment {
                     }, throwable -> {
                         mainActivity.dismissWaitingScreen();
                         Log.d(this.getClass().getSimpleName(), "onError", throwable);
-                        Toast.makeText(getActivity(), "An Error occured - I'm so sorry", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "An Error occurred - I'm so sorry", Toast.LENGTH_SHORT).show();
 
                     });
         };

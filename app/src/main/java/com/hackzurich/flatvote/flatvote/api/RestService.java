@@ -1,6 +1,7 @@
 package com.hackzurich.flatvote.flatvote.api;
 
 import com.hackzurich.flatvote.flatvote.api.model.FlatvoteMessageResponse;
+import com.hackzurich.flatvote.flatvote.api.model.Item;
 
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -20,13 +21,16 @@ public class RestService {
         this.service = retrofit.create(RestServiceDefinition.class);
     }
 
-
-    public Observable<Response<FlatvoteMessageResponse>> getOfferings(String lat, String lng) {
-        return service.getEntries(lat, lng).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    public Response<Item> getOfferign(long id) {
+        return service.getEntry(id);
     }
 
-    public Observable<Response<FlatvoteMessageResponse>> getOfferingsWithDistanceCalculation(String lat, String lng, String place) {
-        return service.getEntriesForPlacename(lat, lng, place).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    public Observable<Response<FlatvoteMessageResponse>> getOfferings(String uid, String lat, String lng) {
+        return service.getEntries(uid, lat, lng).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Observable<Response<FlatvoteMessageResponse>> getOfferingsWithDistanceCalculation(String uid, String lat, String lng, String place) {
+        return service.getEntriesForPlacename(uid, lat, lng, place).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
 }

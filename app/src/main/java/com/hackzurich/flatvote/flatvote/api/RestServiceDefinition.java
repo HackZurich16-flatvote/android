@@ -1,6 +1,7 @@
 package com.hackzurich.flatvote.flatvote.api;
 
 import com.hackzurich.flatvote.flatvote.api.model.FlatvoteMessageResponse;
+import com.hackzurich.flatvote.flatvote.api.model.Item;
 
 import retrofit2.Response;
 import retrofit2.http.GET;
@@ -14,10 +15,13 @@ import rx.Observable;
 public interface RestServiceDefinition {
 
 
-    @GET("realEstates/")
-    Observable<Response<FlatvoteMessageResponse>> getEntries(@Query("longitude") String lat, @Query("latitude") String lng);
+    @GET("realEstates/{id}")
+    Response<Item> getEntry(@Path("id") long id);
+
+    @GET("realEstates/{uid}")
+    Observable<Response<FlatvoteMessageResponse>> getEntries(@Path("uid") String uid, @Query("longitude") String lat, @Query("latitude") String lng);
 
 
-    @GET("realEstates/")
-    Observable<Response<FlatvoteMessageResponse>> getEntriesForPlacename(@Query("longitude") String lat, @Query("latitude") String lng, @Query("place") String place);
+    @GET("realEstates/{uid}")
+    Observable<Response<FlatvoteMessageResponse>> getEntriesForPlacename(@Path("uid") String uid, @Query("longitude") String lat, @Query("latitude") String lng, @Query("place") String place);
 }

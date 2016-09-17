@@ -24,7 +24,6 @@ import butterknife.ButterKnife;
 
 public class YesNoActivity extends Activity{
 
-
     @Inject
     RestService restService;
 
@@ -36,7 +35,6 @@ public class YesNoActivity extends Activity{
         super();
         AppComponent.Holder.getAppComponent().inject(this);
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,15 +49,12 @@ public class YesNoActivity extends Activity{
             finish();
         }
 
-
         carouselView = (CarouselView) findViewById(R.id.carouselView);
         if (carouselView != null) {
             carouselView.setPageCount(item.getPictures().size());
             carouselView.setImageListener(imageListener);
         }
-
     }
-
 
     ImageListener imageListener = new ImageListener() {
         @Override
@@ -74,11 +69,10 @@ public class YesNoActivity extends Activity{
 
     private void loadData(String s, String s1) {
 //                loadData("47.327060", "8.801356");
-        restService.getOfferings(s, s1).subscribe(flatvoteMessageResponseResponse -> {
+        String userName = ((BaseApplication) getApplication()).username;
+        restService.getOfferings(userName, s, s1).subscribe(flatvoteMessageResponseResponse -> {
             for (Item item : flatvoteMessageResponseResponse.body().getItems()) {
                 Log.d(this.getClass().getSimpleName(), item.getCity());
-
-
             }
         }, throwable -> {
             Log.d(this.getClass().getSimpleName(), "onError");
