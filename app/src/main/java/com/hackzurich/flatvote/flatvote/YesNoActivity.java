@@ -50,10 +50,13 @@ public class YesNoActivity extends Activity{
         if (item == null) {
             finish();
         }
-        
+
+
         carouselView = (CarouselView) findViewById(R.id.carouselView);
-        carouselView.setPageCount(item.getPictures().size());
-        carouselView.setImageListener(imageListener);
+        if (carouselView != null) {
+            carouselView.setPageCount(item.getPictures().size());
+            carouselView.setImageListener(imageListener);
+        }
 
     }
 
@@ -61,21 +64,13 @@ public class YesNoActivity extends Activity{
     ImageListener imageListener = new ImageListener() {
         @Override
         public void setImageForPosition(int position, ImageView imageView) {
-            String url = item.getPictures().get(position);
-            loadPictureIntoImageView(url, imageView);
-
+            Glide.with(getApplication())
+                    .load(item.getPictures().get(position))
+                    .centerCrop()
+                    .placeholder(R.mipmap.imgres)
+                    .into(imageView);
         }
     };
-
-    private void loadPictureIntoImageView(String url, ImageView imageView) {
-        Glide
-                .with(this)
-                .load(url)
-                .centerCrop()
-                .placeholder(R.layout.loading_spinner_view)
-                .crossFade()
-                .into(imageView);
-    }
 
     private void loadData(String s, String s1) {
 //                loadData("47.327060", "8.801356");
