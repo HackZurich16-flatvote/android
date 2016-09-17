@@ -76,10 +76,10 @@ public class SelectFragment extends Fragment {
             String lng = String.valueOf(Constants.GPS_LNG_ZURICH);
             String place = input_location1.getText().toString();
             MainActivity mainActivity = (MainActivity) getActivity();
-            mainActivity.showLoadingIndicator();
+            mainActivity.showWaitingScreen();
             restService.getOfferingsWithDistanceCalculation(lat, lng, place).subscribe(
                     flatvoteMessageResponseResponse -> {
-                        mainActivity.dismissLoadingIndicator();
+                        mainActivity.dismissWaitingScreen();
 
                         for (Item item : flatvoteMessageResponseResponse.body().getItems()) {
                             Log.d(this.getClass().getSimpleName(), item.getCity());
@@ -91,7 +91,7 @@ public class SelectFragment extends Fragment {
 
                         // TODO: 17.09.16 work with those elements
                     }, throwable -> {
-                        mainActivity.dismissLoadingIndicator();
+                        mainActivity.dismissWaitingScreen();
                         Log.d(this.getClass().getSimpleName(), "onError", throwable);
                         Toast.makeText(getActivity(), "An Error occured - I'm so sorry", Toast.LENGTH_SHORT).show();
 

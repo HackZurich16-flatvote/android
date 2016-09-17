@@ -7,33 +7,6 @@
     tools:context="com.hackzurich.flatvote.flatvote.MainActivity">
 
 
-    <RelativeLayout
-        android:id="@+id/loading_indicator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_toLeftOf="@+id/loading_indicator_animation"
-            android:text="Loading..." />
-
-        <com.github.rahatarmanahmed.cpv.CircularProgressView
-            android:id="@+id/loading_indicator_animation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true" />
-
-
-    </RelativeLayout>
-
-    <FrameLayout
-        android:id="@+id/content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -41,5 +14,14 @@
         android:background="?attr/colorPrimary"
         android:visibility="gone"
         app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    <FrameLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:layout_toEndOf="@+id/toolbar"
+        android:layout_toRightOf="@+id/toolbar" />
+
 
 </RelativeLayout>
