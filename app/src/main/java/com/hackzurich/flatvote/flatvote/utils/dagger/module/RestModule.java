@@ -36,7 +36,7 @@ public class RestModule {
     @NonNull
     public Retrofit provideRetrofit(OkHttpClient okHttpClient, Gson gson) {
         return new Retrofit.Builder()
-                .baseUrl("https://peaceful-island-82409.herokuapp.com")
+                .baseUrl("https://peaceful-island-82409.herokuapp.com/")
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())

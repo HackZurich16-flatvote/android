@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.content, new loginFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.content, new LoginFragment()).commit();
 
 
         // Create a GoogleApiClient instance

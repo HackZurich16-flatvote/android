@@ -11,19 +11,33 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.hackzurich.flatvote.flatvote.api.Service;
+import com.hackzurich.flatvote.flatvote.utils.dagger.component.AppComponent;
+
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
  * Created by christof on 17.09.16.
  */
-public class loginFragment extends Fragment {
+public class LoginFragment extends Fragment {
 
     @BindView(R.id.btn_login)
     protected AppCompatButton button1;
     @BindView(R.id.input_email)
     protected EditText email;
 
+
+    @Inject
+    Service service;
+
+
+    public LoginFragment() {
+        super();
+        AppComponent.Holder.getAppComponent().inject(this);
+    }
 
     @Nullable
     @Override
@@ -38,7 +52,7 @@ public class loginFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-            button1.setOnClickListener(createClickListener());
+        button1.setOnClickListener(createClickListener());
     }
 
     private View.OnClickListener createClickListener() {

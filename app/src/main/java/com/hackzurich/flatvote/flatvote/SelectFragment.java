@@ -14,7 +14,7 @@ import butterknife.ButterKnife;
 /**
  * Created by christof on 17.09.16.
  */
-public class selectFragment extends Fragment {
+public class SelectFragment extends Fragment {
 
 
 

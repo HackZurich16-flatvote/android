@@ -1,5 +1,6 @@
 package com.hackzurich.flatvote.flatvote.utils.dagger.component;
 
+import com.hackzurich.flatvote.flatvote.LoginFragment;
 import com.hackzurich.flatvote.flatvote.base.BaseApplication;
 import com.hackzurich.flatvote.flatvote.utils.dagger.module.RestModule;
 
@@ -16,6 +17,8 @@ import dagger.Component;
 })
 public interface AppComponent {
 
+
+    void inject(LoginFragment loginFragment);
 
     enum Holder {
 
