@@ -5,6 +5,7 @@ import android.location.Location;
 import android.support.annotation.Nullable;
 import android.support.multidex.MultiDexApplication;
 
+import com.facebook.stetho.Stetho;
 import com.hackzurich.flatvote.flatvote.api.model.Item;
 import com.hackzurich.flatvote.flatvote.utils.dagger.component.AppComponent;
 
@@ -23,6 +24,7 @@ public class BaseApplication extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+        Stetho.initializeWithDefaults(this);
         AppComponent.Holder.initialize(this);
     }
 
