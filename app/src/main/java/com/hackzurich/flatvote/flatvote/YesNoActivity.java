@@ -104,8 +104,19 @@ public class YesNoActivity extends Activity {
         title_text.setText(item.getTitle());
         description_text.setText(item.getDescription());
 
-        like.setOnClickListener(v -> firebaseService.downVote(item.getAdvertisementId()));
-        dislike.setOnClickListener(v -> firebaseService.upVote(item.getAdvertisementId()));
+        like.setOnClickListener(v -> {
+            firebaseService.downVote(item.getAdvertisementId());
+            reload();
+        });
+        dislike.setOnClickListener(v -> {
+            firebaseService.upVote(item.getAdvertisementId());
+            reload();
+        });
+    }
+
+    private void reload() {
+        // TODO: 18/09/16 bui load n more elements
+        // TODO: 18/09/16 reload this view 
     }
 
     ImageListener imageListener = new ImageListener() {
