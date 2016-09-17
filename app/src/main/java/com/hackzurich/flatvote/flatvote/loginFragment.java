@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -18,8 +19,7 @@ import butterknife.ButterKnife;
 public class loginFragment extends Fragment {
 
     @BindView(R.id.btn_login)
-    AppCompatButton button1;
-
+    protected AppCompatButton button1;
 
 
     @Nullable
@@ -35,12 +35,13 @@ public class loginFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        button1.setOnClickListener(createClickListener());
+            button1.setOnClickListener(createClickListener());
     }
 
     private View.OnClickListener createClickListener() {
         return v -> {
             // TODO: 17.09.16 do login
+            Toast.makeText(loginFragment.this.getActivity(),"fuuuubar",Toast.LENGTH_LONG).show();
         };
     }
 }
