@@ -1,5 +1,7 @@
 package com.hackzurich.flatvote.flatvote.api;
 
+import com.hackzurich.flatvote.flatvote.api.model.FlatvoteMessageResponse;
+
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import rx.Observable;
@@ -22,8 +24,8 @@ public class Service {
     }
 
 
-    public Observable<Response<Void>> register(String lat, String lng, String page) {
-        return service.getEntries(lat, lng, page).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    public Observable<Response<FlatvoteMessageResponse>> register(String lat, String lng) {
+        return service.getEntries(lat, lng).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
 }
