@@ -1,6 +1,7 @@
 package com.hackzurich.flatvote.flatvote;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -49,11 +50,9 @@ public class MainActivity extends AppCompatActivity
     private LocationRequest mLocationRequest;
 
 
-    @BindView(R.id.loading_indicator)
-    View loadingIndicator;
-
     @Inject
     protected FirebaseService firebaseService;
+    private ProgressDialog mDialog;
 
     public MainActivity() {
         super();
@@ -171,12 +170,17 @@ public class MainActivity extends AppCompatActivity
         getSupportFragmentManager().beginTransaction().replace(R.id.content, fragment).commit();
     }
 
-    public void showLoadingIndicator() {
-        loadingIndicator.setVisibility(View.VISIBLE);
+    public void showWaitingScreen() {
+            mDialog = new ProgressDialog(this);
+            mDialog.setMessage("Please wait...");
+            mDialog.setCancelable(false);
+        mDialog.show();
     }
 
-    public void dismissLoadingIndicator() {
-        loadingIndicator.setVisibility(View.GONE);
+    public void dismissWaitingScreen() {
+        if (mDialog != null) {
+            mDialog.cancel();
+        }
     }
 
     @Override
