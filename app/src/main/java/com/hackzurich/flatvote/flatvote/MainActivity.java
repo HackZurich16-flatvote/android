@@ -13,6 +13,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -22,7 +23,16 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.hackzurich.flatvote.flatvote.base.BaseApplication;
+import com.hackzurich.flatvote.flatvote.utils.dagger.component.AppComponent;
+import com.hackzurich.flatvote.flatvote.utils.dagger.module.FirebaseService;
+
+import javax.inject.Inject;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, LocationListener, GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks {
@@ -33,9 +43,21 @@ public class MainActivity extends AppCompatActivity
     private LocationRequest mLocationRequest;
 
 
+    @Inject
+    protected FirebaseService firebaseService;
+
+    MainActivity() {
+        AppComponent.Holder.getAppComponent().inject(this);
+    }
+
+    private static final String TAG = "MAIN ACTIVITY";
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference myRef = database.getReference("message");
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -61,6 +83,25 @@ public class MainActivity extends AppCompatActivity
                         this /* OnConnectionFailedListener */)
                 .addApi(LocationServices.API)
                 .build();
+
+
+        // Read from the database
+        ValueEventListener valueEventListener = myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                String value = dataSnapshot.getValue(String.class);
+                Toast.makeText(MainActivity.this.getApplicationContext(), "DATA " + value, Toast.LENGTH_LONG).show();
+                Log.d(TAG, "Value is: " + value);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
 
 
         startLocationUpdates();

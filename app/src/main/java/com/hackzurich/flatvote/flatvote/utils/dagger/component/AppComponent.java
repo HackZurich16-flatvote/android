@@ -1,9 +1,11 @@
 package com.hackzurich.flatvote.flatvote.utils.dagger.component;
 
 import com.hackzurich.flatvote.flatvote.LoginFragment;
+import com.hackzurich.flatvote.flatvote.MainActivity;
 import com.hackzurich.flatvote.flatvote.SelectFragment;
 import com.hackzurich.flatvote.flatvote.YesNoActivity;
 import com.hackzurich.flatvote.flatvote.base.BaseApplication;
+import com.hackzurich.flatvote.flatvote.firebase.InstanceIdService;
 import com.hackzurich.flatvote.flatvote.utils.dagger.module.RestModule;
 
 import javax.inject.Singleton;
@@ -25,6 +27,10 @@ public interface AppComponent {
     void inject(SelectFragment selectFragment);
 
     void inject(YesNoActivity yesNoActivity);
+
+    void inject(MainActivity mainActivity);
+
+    void inject(InstanceIdService instanceIdService);
 
     enum Holder {
 
