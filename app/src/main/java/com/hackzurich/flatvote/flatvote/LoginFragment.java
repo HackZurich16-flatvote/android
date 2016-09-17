@@ -7,7 +7,6 @@ import android.support.v7.widget.AppCompatButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -58,7 +57,7 @@ public class LoginFragment extends Fragment {
     private View.OnClickListener createClickListener() {
         return v -> {
             // TODO: 17.09.16 do login
-            Toast.makeText(loginFragment.this.getActivity(),"fuuuubar",Toast.LENGTH_LONG).show();
+            Toast.makeText(LoginFragment.this.getActivity(),"fuuuubar",Toast.LENGTH_LONG).show();
             String loginName = email.getText().toString();
 
         };

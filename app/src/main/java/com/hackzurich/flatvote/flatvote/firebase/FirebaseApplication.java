@@ -1,4 +1,5 @@
 package com.hackzurich.flatvote.flatvote.firebase;
+
 import com.firebase.client.Firebase;
 
 /**
