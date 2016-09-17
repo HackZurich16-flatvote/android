@@ -28,4 +28,12 @@ public class FirebaseService {
         }
         writeNewUser(userId,token);
     }
+
+    public void downVote(Integer advertisementId) {
+        // TODO micha
+    }
+
+    public void upVote(Integer advertisementId) {
+        // TODO micha
+    }
 }

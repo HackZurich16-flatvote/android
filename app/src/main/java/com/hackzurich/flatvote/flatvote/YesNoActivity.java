@@ -3,6 +3,8 @@ package com.hackzurich.flatvote.flatvote;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -11,6 +13,7 @@ import com.hackzurich.flatvote.flatvote.api.RestService;
 import com.hackzurich.flatvote.flatvote.api.model.Item;
 import com.hackzurich.flatvote.flatvote.base.BaseApplication;
 import com.hackzurich.flatvote.flatvote.utils.dagger.component.AppComponent;
+import com.hackzurich.flatvote.flatvote.utils.dagger.module.FirebaseService;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageListener;
 
@@ -28,6 +31,9 @@ public class YesNoActivity extends Activity{
     @Inject
     RestService restService;
 
+    @Inject
+    FirebaseService firebaseService;
+
     @BindView(R.id.carouselView)
     CarouselView carouselView;
 
@@ -36,6 +42,12 @@ public class YesNoActivity extends Activity{
 
     @BindView(R.id.description_text)
     TextView description_text;
+
+    @BindView(R.id.green_circle)
+    Button like;
+
+    @BindView(R.id.red_circle)
+    Button dislike;
 
 
     private Item item;
@@ -68,6 +80,8 @@ public class YesNoActivity extends Activity{
         title_text.setText(item.getTitle());
         description_text.setText(item.getDescription());
 
+        like.setOnClickListener(v -> firebaseService.downVote(item.getAdvertisementId()));
+        dislike.setOnClickListener( v -> firebaseService.upVote(item.getAdvertisementId()));
     }
 
     ImageListener imageListener = new ImageListener() {
