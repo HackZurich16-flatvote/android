@@ -9,6 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.hackzurich.flatvote.flatvote.api.Service;
+import com.hackzurich.flatvote.flatvote.utils.dagger.component.AppComponent;
+
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -20,6 +25,15 @@ public class LoginFragment extends Fragment {
     @BindView(R.id.btn_login)
     protected AppCompatButton button1;
 
+
+    @Inject
+    Service service;
+
+
+    public LoginFragment() {
+        super();
+        AppComponent.Holder.getAppComponent().inject(this);
+    }
 
     @Nullable
     @Override
@@ -34,13 +48,13 @@ public class LoginFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-            button1.setOnClickListener(createClickListener());
+        button1.setOnClickListener(createClickListener());
     }
 
     private View.OnClickListener createClickListener() {
         return v -> {
             // TODO: 17.09.16 do login
-            Toast.makeText(LoginFragment.this.getActivity(),"fuuuubar",Toast.LENGTH_LONG).show();
+            Toast.makeText(LoginFragment.this.getActivity(), "fuuuubar", Toast.LENGTH_LONG).show();
         };
     }
 }

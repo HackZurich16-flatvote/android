@@ -5,6 +5,7 @@ import com.hackzurich.flatvote.flatvote.api.model.FlatvoteMessageResponse;
 import retrofit2.Response;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 import rx.Observable;
 
 /**
@@ -13,6 +14,6 @@ import rx.Observable;
 public interface ServiceDefinition {
 
 
-    @GET("/realEstates")
-    Observable<Response<FlatvoteMessageResponse>> getEntries(@Path("longitude") String lat, @Path("latitude") String lng);
+    @GET("realEstates/")
+    Observable<Response<FlatvoteMessageResponse>> getEntries(@Query("longitude") String lat, @Query("latitude") String lng);
 }

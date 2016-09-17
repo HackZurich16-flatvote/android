@@ -83,6 +83,7 @@ dependencies {
     compile "com.squareup.retrofit2:adapter-rxjava:$rootProject.ext.retrofitVersion"
     compile "com.squareup.retrofit2:converter-gson:$rootProject.ext.retrofitVersion"
     compile "com.squareup.okhttp3:logging-interceptor:$rootProject.ext.okHTTP"
+    compile "com.squareup.okhttp3:okhttp:$rootProject.ext.okHTTP"
     // Dagger 2
     apt "com.google.dagger:dagger-compiler:$rootProject.ext.daggerVersion"
     compile "com.google.dagger:dagger:$rootProject.ext.daggerVersion"
@@ -93,7 +94,6 @@ dependencies {
     compile 'com.google.code.gson:gson:2.6.2'
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'io.reactivex:rxjava:1.1.6'
-    compile 'com.squareup.okhttp3:okhttp:3.4.1'
 
     // firebase
     compile 'com.google.firebase:firebase-core:9.4.0'
