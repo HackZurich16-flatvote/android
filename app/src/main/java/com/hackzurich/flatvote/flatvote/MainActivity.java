@@ -53,13 +53,17 @@ public class MainActivity extends AppCompatActivity
     @Inject
     protected FirebaseService firebaseService;
 
-    MainActivity() {
+    public MainActivity() {
+        super();
         AppComponent.Holder.getAppComponent().inject(this);
     }
 
     private static final String TAG = "MAIN ACTIVITY";
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("message");
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

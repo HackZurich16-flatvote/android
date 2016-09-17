@@ -19,7 +19,8 @@ public class InstanceIdService  extends FirebaseInstanceIdService {
     @Inject
     protected FirebaseService firebaseService;
 
-    InstanceIdService() {
+    public InstanceIdService() {
+        super();
         AppComponent.Holder.getAppComponent().inject(this);
     }
 
