@@ -6,7 +6,7 @@ import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.hackzurich.flatvote.flatvote.api.Service;
+import com.hackzurich.flatvote.flatvote.api.RestService;
 import com.hackzurich.flatvote.flatvote.api.model.Item;
 import com.hackzurich.flatvote.flatvote.base.BaseApplication;
 import com.hackzurich.flatvote.flatvote.utils.dagger.component.AppComponent;
@@ -26,7 +26,7 @@ public class YesNoActivity extends Activity{
 
 
     @Inject
-    Service service;
+    RestService restService;
 
     @BindView(R.id.carouselView)
     CarouselView carouselView;
@@ -79,7 +79,7 @@ public class YesNoActivity extends Activity{
 
     private void loadData(String s, String s1) {
 //                loadData("47.327060", "8.801356");
-        service.register(s, s1).subscribe(flatvoteMessageResponseResponse -> {
+        restService.getOfferings(s, s1).subscribe(flatvoteMessageResponseResponse -> {
             for (Item item : flatvoteMessageResponseResponse.body().getItems()) {
                 Log.d(this.getClass().getSimpleName(), item.getCity());
 

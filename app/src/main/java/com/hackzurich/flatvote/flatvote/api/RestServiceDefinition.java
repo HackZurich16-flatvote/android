@@ -11,7 +11,7 @@ import rx.Observable;
 /**
  * Created by christof on 17.09.16.
  */
-public interface ServiceDefinition {
+public interface RestServiceDefinition {
 
 
     @GET("realEstates/")

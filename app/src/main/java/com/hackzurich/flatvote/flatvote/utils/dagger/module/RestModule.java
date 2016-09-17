@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.hackzurich.flatvote.flatvote.BuildConfig;
-import com.hackzurich.flatvote.flatvote.api.Service;
+import com.hackzurich.flatvote.flatvote.api.RestService;
 
 import javax.inject.Singleton;
 
@@ -26,8 +26,8 @@ public class RestModule {
 
     @Provides
     @Singleton
-    public Service provideService(Retrofit retrofit) {
-        return new Service(retrofit);
+    public RestService provideRestService(Retrofit retrofit) {
+        return new RestService(retrofit);
     }
 
     @Provides

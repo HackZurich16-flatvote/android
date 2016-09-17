@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.hackzurich.flatvote.flatvote.api.Service;
+import com.hackzurich.flatvote.flatvote.api.RestService;
 import com.hackzurich.flatvote.flatvote.api.model.Item;
 import com.hackzurich.flatvote.flatvote.base.BaseApplication;
 import com.hackzurich.flatvote.flatvote.utils.dagger.component.AppComponent;
@@ -31,7 +31,7 @@ public class SelectFragment extends Fragment {
     AppCompatButton button1;
 
     @Inject
-    Service service;
+    RestService restService;
 
 
     public SelectFragment() {
@@ -59,7 +59,7 @@ public class SelectFragment extends Fragment {
             // TODO: 17.09.16 do search
             BaseApplication application = (BaseApplication) getActivity().getApplication();
             Location location = application.getLocation();
-            service.register(String.valueOf(location.getLatitude()), String.valueOf(location.getLongitude())).subscribe(flatvoteMessageResponseResponse -> {
+            restService.getOfferings(String.valueOf(location.getLatitude()), String.valueOf(location.getLongitude())).subscribe(flatvoteMessageResponseResponse -> {
                 for (Item item : flatvoteMessageResponseResponse.body().getItems()) {
                     Log.d(this.getClass().getSimpleName(), item.getCity());
                 }
