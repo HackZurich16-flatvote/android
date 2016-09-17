@@ -15,7 +15,6 @@ import com.hackzurich.flatvote.flatvote.utils.dagger.component.AppComponent;
 public class BaseApplication extends MultiDexApplication {
 
     private Location location;
-    private Item item;
     public String username;
 
     @Override
@@ -34,11 +33,5 @@ public class BaseApplication extends MultiDexApplication {
         return location;
     }
 
-    public Item getItem() {
-        return item;
-    }
 
-    public void setItem(Item item) {
-        this.item = item;
-    }
 }
