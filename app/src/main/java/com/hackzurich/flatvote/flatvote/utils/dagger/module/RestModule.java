@@ -30,6 +30,12 @@ public class RestModule {
         return new Service(retrofit);
     }
 
+    @Provides
+    @Singleton
+    public FirebaseService provideFirebaseService() {
+        return new FirebaseService();
+    }
+
 
     @Provides
     @Singleton

@@ -59,7 +59,7 @@ public class LoginFragment extends Fragment {
             // TODO: 17.09.16 do login
             Toast.makeText(LoginFragment.this.getActivity(),"fuuuubar",Toast.LENGTH_LONG).show();
             String loginName = email.getText().toString();
-
+            UglyGlobalHashMap.getInstance().put(UglyGlobalHashMap.USER_ID,loginName);
         };
     }
 }

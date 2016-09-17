@@ -24,9 +24,21 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.hackzurich.flatvote.flatvote.utils.dagger.component.AppComponent;
+import com.hackzurich.flatvote.flatvote.utils.dagger.module.FirebaseService;
+
+import javax.inject.Inject;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks {
+
+
+    @Inject
+    protected FirebaseService firebaseService;
+
+    MainActivity() {
+        AppComponent.Holder.getAppComponent().inject(this);
+    }
 
     private static final String TAG = "MAIN ACTIVITY";
     private Object mGoogleApiClient;
