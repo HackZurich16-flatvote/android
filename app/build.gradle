@@ -7,6 +7,7 @@ buildscript {
     dependencies {
         classpath 'me.tatarka:gradle-retrolambda:3.3.0'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+        classpath 'com.google.gms:google-services:3.0.0'
     }
 }
 
@@ -21,8 +22,8 @@ android {
 
 
     defaultConfig {
-        applicationId "com.hackzurich.flatvote.flatvote"
-        minSdkVersion 9
+            applicationId "com.hackzurich.flatvote.flatvote"
+        minSdkVersion 14
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
@@ -73,6 +74,7 @@ dependencies {
     provided 'javax.annotation:jsr250-api:1.0'
 
     compile 'com.github.rahatarmanahmed:circularprogressview:2.5.0'
+    apply plugin: 'com.google.gms.google-services'
 
 
     compile 'com.google.code.gson:gson:2.6.2'
