@@ -17,14 +17,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_toRightOf="@id/loading_indicator_animation"
+            android:layout_toLeftOf="@+id/loading_indicator_animation"
             android:text="Loading..." />
 
         <com.github.rahatarmanahmed.cpv.CircularProgressView
-            android:layout_alignParentRight="true"
             android:id="@+id/loading_indicator_animation"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true" />
 
 
     </RelativeLayout>
