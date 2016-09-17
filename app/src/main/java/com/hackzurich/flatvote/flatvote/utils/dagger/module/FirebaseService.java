@@ -19,7 +19,8 @@ public class FirebaseService {
 
     public void writeNewUser(String userId, String token) {
         DeviceEntry user = new DeviceEntry(userId, token);
-        mDatabase.child("users").child(userId).setValue(user);
+        String userIdCleaned = userId.replace(".",",");
+        mDatabase.child("users").child(userIdCleaned).setValue(user);
     }
 
     public void writeNewUser(String token){

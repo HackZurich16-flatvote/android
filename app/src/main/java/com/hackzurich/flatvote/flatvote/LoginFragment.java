@@ -10,8 +10,12 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.FirebaseMessagingService;
 import com.hackzurich.flatvote.flatvote.api.Service;
 import com.hackzurich.flatvote.flatvote.utils.dagger.component.AppComponent;
+import com.hackzurich.flatvote.flatvote.utils.dagger.module.FirebaseService;
 
 import javax.inject.Inject;
 
@@ -31,6 +35,8 @@ public class LoginFragment extends Fragment {
 
     @Inject
     Service service;
+    @Inject
+    FirebaseService firebaseService;
 
 
     public LoginFragment() {
@@ -60,6 +66,7 @@ public class LoginFragment extends Fragment {
             Toast.makeText(LoginFragment.this.getActivity(),"fuuuubar",Toast.LENGTH_LONG).show();
             String loginName = email.getText().toString();
             UglyGlobalHashMap.getInstance().put(UglyGlobalHashMap.USER_ID,loginName);
+            firebaseService.writeNewUser(loginName, FirebaseInstanceId.getInstance().getToken());
         };
     }
 }
