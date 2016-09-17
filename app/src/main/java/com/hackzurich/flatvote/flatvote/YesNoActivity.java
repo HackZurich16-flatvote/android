@@ -43,8 +43,8 @@ public class YesNoActivity extends Activity{
         setContentView(R.layout.activity_yesno);
         ButterKnife.bind(this);
 
-        BaseApplication application = (BaseApplication) getApplication();
-        item = application.getItem();
+    //    BaseApplication application = (BaseApplication) getApplication();
+    //    item = application.getItem();
         
         if (item == null) {
             finish();
