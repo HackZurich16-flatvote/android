@@ -202,16 +202,16 @@ public class YesNoActivity extends Activity {
 
     private void loadData(String s, String s1) {
 //                loadData("47.327060", "8.801356");
-        String userName = ((BaseApplication) getApplication()).username;
-        restService.getOfferings(userName, s, s1).subscribe(flatvoteMessageResponseResponse -> {
-            for (Item item : flatvoteMessageResponseResponse.body().getItems()) {
-                Log.d(this.getClass().getSimpleName(), item.getCity());
-            }
-        }, throwable -> {
-            Log.d(this.getClass().getSimpleName(), "onError");
-            Log.d(this.getClass().getSimpleName(), "onError", throwable);
-
-        });
+//        String userName = ((BaseApplication) getApplication()).username;
+//        restService.getOfferings(userName, s, s1).subscribe(flatvoteMessageResponseResponse -> {
+//            for (Item item : flatvoteMessageResponseResponse.body().getItems()) {
+//                Log.d(this.getClass().getSimpleName(), item.getCity());
+//            }
+//        }, throwable -> {
+//            Log.d(this.getClass().getSimpleName(), "onError");
+//            Log.d(this.getClass().getSimpleName(), "onError", throwable);
+//
+//        });
     }
 
 
