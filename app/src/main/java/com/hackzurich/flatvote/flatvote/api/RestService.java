@@ -25,12 +25,16 @@ public class RestService {
         return service.getEntry(id, place);
     }
 
-    public Observable<Response<FlatvoteMessageResponse>> getOfferings(String uid, String lat, String lng) {
-        return service.getEntries(uid, lat, lng).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
-    }
+//    public Observable<Response<FlatvoteMessageResponse>> getOfferings(String uid, String lat, String lng) {
+//        return service.getEntries(uid, lat, lng).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+//    }
 
     public Observable<Response<FlatvoteMessageResponse>> getOfferingsWithDistanceCalculation(String uid, String lat, String lng, String place) {
         return service.getEntriesForPlacename(uid, lat, lng, place).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Observable<Response<FlatvoteMessageResponse>> getOfferingsWithDistanceCalculationWith2Objects(String uid, String lat, String lng, String place) {
+        return service.getEntriesForPlacenameWithLimit(uid, lat, lng, place, 2).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
 }
