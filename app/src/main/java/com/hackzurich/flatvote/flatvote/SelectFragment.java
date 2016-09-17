@@ -1,5 +1,6 @@
 package com.hackzurich.flatvote.flatvote;
 
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,6 +17,8 @@ import com.hackzurich.flatvote.flatvote.api.RestService;
 import com.hackzurich.flatvote.flatvote.api.model.Item;
 import com.hackzurich.flatvote.flatvote.base.BaseApplication;
 import com.hackzurich.flatvote.flatvote.utils.dagger.component.AppComponent;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -86,7 +89,7 @@ public class SelectFragment extends Fragment {
                         }
 
                         if (flatvoteMessageResponseResponse.body().getItems().size() > 0) {
-                            showDialogForItem(flatvoteMessageResponseResponse.body().getItems().get(0));
+                            showDialogForItem(flatvoteMessageResponseResponse.body().getItems());
                         }
 
                         // TODO: 17.09.16 work with those elements
@@ -99,9 +102,12 @@ public class SelectFragment extends Fragment {
         };
     }
 
-    private void showDialogForItem(Item item) {
-        SelectionDialog dialog = new SelectionDialog(item);
-        dialog.show(getActivity().getSupportFragmentManager(), "selectiondialog");
+    private void showDialogForItem(List<Item> item) {
+        UglyGlobalHolderObject.getInstance().addItems(item);
+        Intent intent = new Intent(getActivity(),YesNoActivity.class);
+        startActivity(intent);
+      //  SelectionDialog dialog = new SelectionDialog(item);
+      //  dialog.show(getActivity().getSupportFragmentManager(), "selectiondialog");
     }
 }
 

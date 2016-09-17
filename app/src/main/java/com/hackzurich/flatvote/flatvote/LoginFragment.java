@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.fitness.data.Application;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.hackzurich.flatvote.flatvote.api.RestService;
 import com.hackzurich.flatvote.flatvote.base.BaseApplication;
@@ -66,7 +65,7 @@ public class LoginFragment extends Fragment {
             Toast.makeText(LoginFragment.this.getActivity(),"fuuuubar",Toast.LENGTH_LONG).show();
             String loginName = email.getText().toString();
             ((BaseApplication) getActivity().getApplication()).username = loginName;
-            UglyGlobalHashMap.getInstance().put(UglyGlobalHashMap.USER_ID,loginName);
+            UglyGlobalHolderObject.getInstance().getMap().put(UglyGlobalHolderObject.USER_ID,loginName);
             firebaseService.writeNewUser(loginName, FirebaseInstanceId.getInstance().getToken());
             ((MainActivity) getActivity()).replaceFragment(new SelectFragment());
         };

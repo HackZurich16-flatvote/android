@@ -34,6 +34,7 @@ public class YesNoActivity extends Activity{
 
     public YesNoActivity() {
         super();
+        item = UglyGlobalHolderObject.getInstance().getNextItem();
         AppComponent.Holder.getAppComponent().inject(this);
     }
 
