@@ -16,4 +16,8 @@ public interface ServiceDefinition {
 
     @GET("realEstates/")
     Observable<Response<FlatvoteMessageResponse>> getEntries(@Query("longitude") String lat, @Query("latitude") String lng);
+
+
+    @GET("realEstates/")
+    Observable<Response<FlatvoteMessageResponse>> getEntriesForPlacename(@Query("longitude") String lat, @Query("latitude") String lng, @Query("place") String place, @Query("placeName") String placeName);
 }
