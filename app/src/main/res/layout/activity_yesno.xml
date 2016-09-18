@@ -18,7 +18,8 @@
         app:strokeWidth="1dp" />
 <ScrollView
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="15dp"
    >
 
     <LinearLayout
@@ -48,35 +49,37 @@
             android:id="@+id/travelTimeWork"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="duration" />
+            android:text=""
+            />
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="200dp"
+            android:padding="25dp">
+
+
+            <ImageView
+                android:id="@+id/green_circle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/green_circle" />
+
+            <ImageView
+                android:id="@+id/red_circle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:src="@drawable/red_circle" />
+
+
+        </RelativeLayout>
     </LinearLayout>
 </ScrollView>
-    d<RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="200dp"
-        android:padding="25dp">
 
-
-        <ImageView
-            android:id="@+id/green_circle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:src="@drawable/green_circle" />
-
-        <ImageView
-            android:id="@+id/red_circle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:src="@drawable/red_circle" />
-
-
-    </RelativeLayout>
 
 
 </LinearLayout>

@@ -112,7 +112,7 @@ public class YesNoActivity extends Activity {
         title_text.setText(item.getTitle());
         description_text.setText(item.getDescription());
         if (item.getTravelTimes().size() > 0) {
-            duration.setText("Ø " + item.getTravelTimes().get(0) + " Minuten");
+            duration.setText("\nReisezeit Ø " + item.getTravelTimes().get(0) + " Minuten");
         }
         like.setOnClickListener(v -> {
             firebaseService.upVote(item.getAdvertisementId());
