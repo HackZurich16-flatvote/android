@@ -95,11 +95,11 @@ public class YesNoActivity extends Activity {
         }
 
         title_text.setText(item.getTitle());
-        price_text.setText(String.valueOf(item.getSellingPrice()));
+        price_text.setText("Preis: " + String.valueOf(item.getSellingPrice()));
         if (item.getNumberRooms() != null && item.getNumberRooms() <= 0.5) {
-            roomnumber_text.setVisibility(View.INVISIBLE);
+            roomnumber_text.setVisibility(View.GONE);
         } else {
-            roomnumber_text.setText(String.valueOf(item.getNumberRooms()));
+            roomnumber_text.setText("Anzahl Räume: " + String.valueOf(item.getNumberRooms()));
             roomnumber_text.setVisibility(View.VISIBLE);
         }
 
