@@ -29,7 +29,7 @@ android {
 
     defaultConfig {
         applicationId "com.hackzurich.flatvote.flatvote"
-        minSdkVersion 14
+        minSdkVersion 16
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"

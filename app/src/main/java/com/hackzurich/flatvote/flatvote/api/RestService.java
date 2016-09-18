@@ -22,7 +22,7 @@ public class RestService {
     }
 
     public Observable<Response<Item>> getOffering(long id, String place) {
-        return service.getEntry(id, place);
+        return service.getEntry(id, place).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
 //    public Observable<Response<FlatvoteMessageResponse>> getOfferings(String uid, String lat, String lng) {
