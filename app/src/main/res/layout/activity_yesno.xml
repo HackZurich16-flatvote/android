@@ -38,6 +38,18 @@
             android:text="temp" />
 
 
+        <TextView
+            android:id="@+id/price_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="price_text" />
+
+        <TextView
+            android:id="@+id/roomnumber_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="roomnumber_text" />
+
 
         <TextView
             android:id="@+id/description_text"

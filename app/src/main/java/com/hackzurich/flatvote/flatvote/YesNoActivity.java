@@ -42,6 +42,12 @@ public class YesNoActivity extends Activity {
     @BindView(R.id.title_text)
     TextView title_text;
 
+    @BindView(R.id.price_text)
+    TextView price_text;
+
+    @BindView(R.id.roomnumber_text)
+    TextView roomnumber_text;
+
     @BindView(R.id.travelTimeWork)
     TextView duration;
 
@@ -89,13 +95,22 @@ public class YesNoActivity extends Activity {
         }
 
         title_text.setText(item.getTitle());
+        price_text.setText(item.getSellingPrice());
+        if (item.getNumberRooms() != null && item.getNumberRooms() <= 0.5) {
+            roomnumber_text.setVisibility(View.INVISIBLE);
+        } else {
+            roomnumber_text.setText(String.valueOf(item.getNumberRooms()));
+            roomnumber_text.setVisibility(View.VISIBLE);
+        }
+
+
         description_text.setText(item.getDescription());
         if (item.getTravelTimes().size() > 0) {
             duration.setText("\nReisezeit Ø " + item.getTravelTimes().get(0) + " Minuten");
         }
 
         Bundle extras = getIntent().getExtras();
-        String voteKey = extras == null ? null : (String)extras.get(Constants.KEY_VOTE_ID);
+        String voteKey = extras == null ? null : (String) extras.get(Constants.KEY_VOTE_ID);
         if (extras != null && extras.get(Constants.ITEM_NUMBER) != null) {
             this.itemNumber = (Integer) extras.get(Constants.ITEM_NUMBER);
         } else {

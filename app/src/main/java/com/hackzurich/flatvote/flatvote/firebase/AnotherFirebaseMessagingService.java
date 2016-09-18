@@ -25,13 +25,15 @@ import javax.inject.Inject;
  */
 public class AnotherFirebaseMessagingService extends FirebaseMessagingService {
 
-    public AnotherFirebaseMessagingService(){
+    public AnotherFirebaseMessagingService() {
         super();
         AppComponent.Holder.getAppComponent().inject(this);
     }
+
     private static final String TAG = "FirebaseService";
     @Inject
     RestService restService;
+
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         // [START_EXCLUDE]
@@ -66,7 +68,10 @@ public class AnotherFirebaseMessagingService extends FirebaseMessagingService {
         intent.putExtra(Constants.KEY_ADVERTISMENT, remoteMessage.getData().get("advertisementId"));
         intent.putExtra(Constants.KEY_VOTE_ID, remoteMessage.getData().get("voteKey"));
 // use System.currentTimeMillis() to have a unique ID for the pending intent
-        PendingIntent pIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, 0);
+
+        int advertisementId = Integer.parseInt(remoteMessage.getData().get("advertisementId"));
+
+        PendingIntent pIntent = PendingIntent.getActivity(getApplicationContext(), advertisementId, intent, 0);
 
 // build notification
 // the addAction re-use the same intent to keep the example short
@@ -87,7 +92,7 @@ public class AnotherFirebaseMessagingService extends FirebaseMessagingService {
         String selectedPlace = pref.getString(Constants.KEY_USERPREF, "Zuerich");
         String itemid = remoteMessage.getData().get("advertisementId");
         restService.getOffering(Long.valueOf(itemid), selectedPlace).subscribe(itemResponse -> {
-                    UglyGlobalHolderObject.getInstance().addItem(  itemResponse.body());
+                    UglyGlobalHolderObject.getInstance().addItem(itemResponse.body());
                     notificationManager.notify(0, n);
                 }, throwable -> {
                     Log.d("notifci", "error occured");

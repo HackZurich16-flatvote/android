@@ -31,26 +31,38 @@ public class Item {
     @SerializedName("advertisementId")
     @Expose
     private Integer advertisementId;
+
+    @SerializedName("numberRooms")
+    @Expose
+    private Float numberRooms;
+
     @SerializedName("travelTimes")
     @Expose
     private ArrayList<Float> travelTimes;
 
     /**
-     * 
+     *
      * @return
      *     The title
      */
     public String getTitle() {
         return title;
     }
-
     /**
-     * 
+     *
      * @param title
      *     The title
      */
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public void setNumberRooms(Float numberRooms) {
+        this.numberRooms = numberRooms;
+    }
+
+    public Float getNumberRooms() {
+        return numberRooms;
     }
 
     /**
