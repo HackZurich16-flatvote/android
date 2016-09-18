@@ -1,12 +1,10 @@
 package com.hackzurich.flatvote.flatvote.firebase;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
-import android.net.Uri;
-import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -19,7 +17,7 @@ import com.hackzurich.flatvote.flatvote.YesNoActivity;
  * Created by longstone on 17/09/16.
  */
 public class AnotherFirebaseMessagingService extends FirebaseMessagingService {
-    private static final String TAG = "AnotherFirebaseMessagingService";
+    private static final String TAG = "FirebaseService";
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -45,34 +43,34 @@ public class AnotherFirebaseMessagingService extends FirebaseMessagingService {
         String messageBody = "";
         // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
-            Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
+            Log.d(TAG, "Not Body: " + remoteMessage.getNotification().getBody());
             messageBody = remoteMessage.getNotification().getBody();
         }
 
 
         Intent intent = new Intent(this, YesNoActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
-                PendingIntent.FLAG_ONE_SHOT);
-        String adId = remoteMessage.getData().get("advertisementId");
-        intent.putExtra(Constants.KEY_ADVERTISMENT, adId);
-        remoteMessage.getData().get("friendName");
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.putExtra(Constants.KEY_ADVERTISMENT, remoteMessage.getData().get("advertisementId"));
+// use System.currentTimeMillis() to have a unique ID for the pending intent
+        PendingIntent pIntent = PendingIntent.getActivity(this, (int) System.currentTimeMillis(), intent, 0);
 
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.mipmap.ic_launcher)
+// build notification
+// the addAction re-use the same intent to keep the example short
+        Notification n = new Notification.Builder(this)
                 .setContentTitle(messageBody)
-                //   .setContentText(messageBody)
-                .setAutoCancel(true)
+//                .setContentText("Subject")
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentIntent(pIntent)
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
-                .setContentIntent(pendingIntent);
+                .setAutoCancel(true)
+                .build();
+
 
         NotificationManager notificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
-        notificationManager.notify(Integer.parseInt(adId), notificationBuilder.build());
-
-        // Also if you intend on generating your own notifications as a result of a received FCM
-        // message, here is where that should be initiated. See sendNotification method below.
+        notificationManager.notify(0, n);
     }
 
 }
