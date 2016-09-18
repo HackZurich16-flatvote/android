@@ -62,7 +62,6 @@ public class LoginFragment extends Fragment {
     private View.OnClickListener createClickListener() {
         return v -> {
             // TODO: 17.09.16 do login
-            Toast.makeText(LoginFragment.this.getActivity(),"fuuuubar",Toast.LENGTH_LONG).show();
             String loginName = email.getText().toString();
             ((BaseApplication) getActivity().getApplication()).username = loginName;
             UglyGlobalHolderObject.getInstance().getMap().put(UglyGlobalHolderObject.USER_ID,loginName);
