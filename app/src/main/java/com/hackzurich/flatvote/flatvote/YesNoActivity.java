@@ -96,7 +96,11 @@ public class YesNoActivity extends Activity {
 
         Bundle extras = getIntent().getExtras();
         String voteKey = extras == null ? null : (String)extras.get(Constants.KEY_VOTE_ID);
-        this.itemNumber = extras == null ? 0 : (Integer) extras.get(Constants.ITEM_NUMBER);
+        if (extras == null && extras.get(Constants.ITEM_NUMBER) != null) {
+            this.itemNumber = 0;
+        } else {
+            this.itemNumber = (Integer) extras.get(Constants.ITEM_NUMBER);
+        }
 
         like.setOnClickListener(v -> {
             firebaseService.upVote(item.getAdvertisementId(), voteKey);
