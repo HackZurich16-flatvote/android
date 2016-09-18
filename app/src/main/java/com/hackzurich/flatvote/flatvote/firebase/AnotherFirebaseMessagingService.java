@@ -5,6 +5,8 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
@@ -75,10 +77,14 @@ public class AnotherFirebaseMessagingService extends FirebaseMessagingService {
 
 // build notification
 // the addAction re-use the same intent to keep the example short
+        Bitmap iconBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+
+
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
         builder.setContentTitle(messageBody)
 //                .setContentText("Subject")
                 .setSmallIcon(R.mipmap.ic_launcher)
+                .setLargeIcon(iconBitmap)
                 .setContentIntent(pIntent)
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                 .setAutoCancel(true);
