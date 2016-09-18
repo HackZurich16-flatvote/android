@@ -1,8 +1,14 @@
 package com.hackzurich.flatvote.flatvote.utils.dagger.module;
 
+import android.util.Log;
+
 import com.bumptech.glide.load.model.stream.HttpUrlGlideUrlLoader;
+import com.facebook.stetho.inspector.protocol.module.Database;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.hackzurich.flatvote.flatvote.UglyGlobalHolderObject;
 import com.hackzurich.flatvote.flatvote.models.DeviceEntry;
 
@@ -35,12 +41,32 @@ public class FirebaseService {
         writeNewUser(userId,token);
     }
 
-    public void downVote(Integer advertisementId) {
-        initVote(false,advertisementId);
+    public void downVote(Integer advertisementId, String voteKey) {
+        if (voteKey == null) {
+            initVote(false, advertisementId);
+        } else {
+            updateVote(false, voteKey);
+        }
     }
 
-    public void upVote(Integer advertisementId) {
-       initVote(true,advertisementId);
+    public void upVote(Integer advertisementId, String voteKey) {
+        if (voteKey == null) {
+            initVote(true, advertisementId);
+        } else {
+            updateVote(true, voteKey);
+        }
+    }
+
+    private DatabaseReference updateVote(boolean yes, String voteKey) {
+        DatabaseReference vote = mDatabase.child("votes").child(voteKey);
+
+        if (yes) {
+            vote.child("yes").push().setValue(getCleanUserId());
+        } else {
+            vote.child("no").push().setValue(getCleanUserId());
+        }
+
+        return mDatabase.child("votes");
     }
 
     private void initVote(boolean forYes, int advertisementId){
@@ -49,12 +75,32 @@ public class FirebaseService {
 
         Map<String, Object> values = new HashMap<>();
         values.put("advertisementId", advertisementId);
-        String field = forYes ? "yes" : "no";
-        List<String> userIds = new ArrayList<>();
-        userIds.add(getCleanUserId());
-        values.put(field, userIds);
 
-        vote.setValue(values);
+        mDatabase.child("friends").child(getCleanUserId()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<String> yesUserIds = new ArrayList<>();
+                List<String> noUserIds = new ArrayList<>();
+                if (forYes) {
+                    yesUserIds.add(getCleanUserId());
+                } else {
+                    noUserIds.add(getCleanUserId());
+                }
+
+                List<String> userIds = new ArrayList<>();
+                userIds.add(getCleanUserId());
+                values.put("yes", yesUserIds);
+                values.put("no", noUserIds);
+                values.put("votesRequired", dataSnapshot.getChildrenCount() + 1);
+
+                vote.setValue(values);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e("DB_ERROR",  databaseError.getDetails());
+            }
+        });
     }
 
     private String getCleanUserId(){

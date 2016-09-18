@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.hackzurich.flatvote.flatvote.api.RestService;
-import com.hackzurich.flatvote.flatvote.api.model.FlatvoteMessageResponse;
 import com.hackzurich.flatvote.flatvote.api.model.Item;
 import com.hackzurich.flatvote.flatvote.base.BaseApplication;
 import com.hackzurich.flatvote.flatvote.utils.dagger.component.AppComponent;
@@ -25,8 +24,6 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.Response;
-import rx.functions.Action1;
 
 /**
  * Created by christof on 17.09.16.
@@ -97,7 +94,7 @@ public class YesNoActivity extends Activity {
                     item = itemResponse.body();
                     initView();
                 }, throwable -> {
-            Log.d("notifci", "error occured");
+                    Log.d("notifci", "error occured");
                     // TODO: 18.09.16 handle failed call
                 }
         );
@@ -107,7 +104,12 @@ public class YesNoActivity extends Activity {
         carouselView = (CarouselView) findViewById(R.id.carouselView);
         if (carouselView != null) {
             carouselView.setPageCount(item.getPictures().size());
-            carouselView.setImageListener(imageListener);
+            carouselView.setImageListener((position, imageView) ->
+                    Glide.with(getApplication())
+                    .load(item.getPictures().get(position))
+                    .centerCrop()
+                    .placeholder(R.mipmap.imgres)
+                    .into(imageView));
         }
 
         title_text.setText(item.getTitle());
@@ -115,12 +117,16 @@ public class YesNoActivity extends Activity {
         if (item.getTravelTimes().size() > 0) {
             duration.setText("\nReisezeit Ø " + item.getTravelTimes().get(0) + " Minuten");
         }
+
+        Bundle extras = getIntent().getExtras();
+        String voteKey = extras == null ? null : (String)extras.get(Constants.KEY_VOTE_ID);
+
         like.setOnClickListener(v -> {
-            firebaseService.upVote(item.getAdvertisementId());
+            firebaseService.upVote(item.getAdvertisementId(), voteKey);
             reload();
         });
         dislike.setOnClickListener(v -> {
-            firebaseService.downVote(item.getAdvertisementId());
+            firebaseService.downVote(item.getAdvertisementId(), voteKey);
             reload();
         });
         //   initUIEffects();
@@ -134,16 +140,15 @@ public class YesNoActivity extends Activity {
         String preferredLocatipon = pref.getString(Constants.KEY_USERPREF, "Zuerich");
 
 
-        restService.getOfferingsWithDistanceCalculation(userName, String.valueOf(Constants.GPS_LAT_ZURICH), String.valueOf(Constants.GPS_LNG_ZURICH), preferredLocatipon).subscribe(new Action1<Response<FlatvoteMessageResponse>>() {
-            @Override
-            public void call(Response<FlatvoteMessageResponse> flatvoteMessageResponseResponse) {
-                UglyGlobalHolderObject.getInstance().addItems(flatvoteMessageResponseResponse.body().getItems());
-            }
+        restService.getOfferingsWithDistanceCalculation(userName, String.valueOf(Constants.GPS_LAT_ZURICH), String.valueOf(Constants.GPS_LNG_ZURICH), preferredLocatipon).subscribe(flatvoteMessageResponseResponse -> {
+            UglyGlobalHolderObject.getInstance().addItems(flatvoteMessageResponseResponse.body().getItems());
+        }, throwable -> {
+            Log.d("yesnoActivity", "onError", throwable);
         });
 
 
         Intent intent = new Intent(this, YesNoActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 
@@ -194,17 +199,6 @@ public class YesNoActivity extends Activity {
             return true;
         });
     }
-
-    ImageListener imageListener = new ImageListener() {
-        @Override
-        public void setImageForPosition(int position, ImageView imageView) {
-            Glide.with(getApplication())
-                    .load(item.getPictures().get(position))
-                    .centerCrop()
-                    .placeholder(R.mipmap.imgres)
-                    .into(imageView);
-        }
-    };
 
     private void loadData(String s, String s1) {
 //                loadData("47.327060", "8.801356");

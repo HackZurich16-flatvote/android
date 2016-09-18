@@ -26,7 +26,9 @@
         </activity>
 
 
-        <activity android:name=".YesNoActivity">
+        <activity
+            android:name="com.hackzurich.flatvote.flatvote.YesNoActivity"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="com.hackzurich.flatvote.flatvote.YesNoActivity" />
                 <category android:name="android.intent.category.DEFAULT" />
