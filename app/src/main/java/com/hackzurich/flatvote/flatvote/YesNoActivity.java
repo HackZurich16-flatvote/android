@@ -117,12 +117,16 @@ public class YesNoActivity extends Activity {
         if (item.getTravelTimes().size() > 0) {
             duration.setText("\nReisezeit Ø " + item.getTravelTimes().get(0) + " Minuten");
         }
+
+        Bundle extras = getIntent().getExtras();
+        String voteKey = extras == null ? null : (String)extras.get(Constants.KEY_VOTE_ID);
+
         like.setOnClickListener(v -> {
-            firebaseService.upVote(item.getAdvertisementId());
+            firebaseService.upVote(item.getAdvertisementId(), voteKey);
             reload();
         });
         dislike.setOnClickListener(v -> {
-            firebaseService.downVote(item.getAdvertisementId());
+            firebaseService.downVote(item.getAdvertisementId(), voteKey);
             reload();
         });
         //   initUIEffects();

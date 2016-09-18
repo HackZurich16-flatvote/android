@@ -52,6 +52,7 @@ public class AnotherFirebaseMessagingService extends FirebaseMessagingService {
         Intent intent = new Intent(this, YesNoActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.putExtra(Constants.KEY_ADVERTISMENT, remoteMessage.getData().get("advertisementId"));
+        intent.putExtra(Constants.KEY_VOTE_ID, remoteMessage.getData().get("voteKey"));
 // use System.currentTimeMillis() to have a unique ID for the pending intent
         PendingIntent pIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, 0);
 
