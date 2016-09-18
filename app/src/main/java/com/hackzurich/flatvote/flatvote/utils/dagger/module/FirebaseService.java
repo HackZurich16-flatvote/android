@@ -6,6 +6,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.hackzurich.flatvote.flatvote.UglyGlobalHolderObject;
 import com.hackzurich.flatvote.flatvote.models.DeviceEntry;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * Created by longstone on 17/09/16.
  */
@@ -40,20 +46,15 @@ public class FirebaseService {
     private void initVote(boolean forYes, int advertisementId){
         DatabaseReference votes = mDatabase.child("votes");
         DatabaseReference vote = votes.push();
-        DatabaseReference ad = vote.child("advertisementId");
-        ad.setValue(Integer.toString(advertisementId));
-        DatabaseReference no = vote.child("no");
-        DatabaseReference yes = vote.child("yes");
-        if(forYes){
-            addUserIdToVote(yes);
-        }else{
-            addUserIdToVote(no);
-        }
-    }
 
-    private void addUserIdToVote(DatabaseReference ref) {
-        DatabaseReference push = ref.push();
-        push.setValue(getCleanUserId());
+        Map<String, Object> values = new HashMap<>();
+        values.put("advertisementId", advertisementId);
+        String field = forYes ? "yes" : "no";
+        List<String> userIds = new ArrayList<>();
+        userIds.add(getCleanUserId());
+        values.put(field, userIds);
+
+        vote.setValue(values);
     }
 
     private String getCleanUserId(){
