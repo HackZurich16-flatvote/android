@@ -18,7 +18,6 @@ import com.hackzurich.flatvote.flatvote.base.BaseApplication;
 import com.hackzurich.flatvote.flatvote.utils.dagger.component.AppComponent;
 import com.hackzurich.flatvote.flatvote.utils.dagger.module.FirebaseService;
 import com.synnapps.carouselview.CarouselView;
-import com.synnapps.carouselview.ImageListener;
 
 import javax.inject.Inject;
 
@@ -56,7 +55,7 @@ public class YesNoActivity extends Activity {
     View dislike;
 
 
-    private Item item;
+    private static Item item;
 
     public YesNoActivity() {
         super();
@@ -70,34 +69,10 @@ public class YesNoActivity extends Activity {
         setContentView(R.layout.activity_yesno);
         ButterKnife.bind(this);
 
-        Bundle extras = getIntent().getExtras();
-        String itemid = null;
-        if (extras != null) {
-            Log.i("dd", "Extra:" + extras.getString(Constants.KEY_ADVERTISMENT));
-            itemid = extras.getString(Constants.KEY_ADVERTISMENT);
+
+        if (item != null) {
+            initView();
         }
-
-
-        if (itemid != null && itemid.length() > 0) {
-            fetchItemFromServer(itemid);
-        } else {
-            if (item != null) {
-                initView();
-            }
-        }
-    }
-
-    private void fetchItemFromServer(String itemid) {
-        SharedPreferences pref = this.getSharedPreferences(Constants.KEY_SHAREDPREFERENCES, MODE_PRIVATE);
-        String selectedPlace = pref.getString(Constants.KEY_USERPREF, "Zuerich");
-        restService.getOffering(Long.valueOf(itemid), selectedPlace).subscribe(itemResponse -> {
-                    item = itemResponse.body();
-                    initView();
-                }, throwable -> {
-                    Log.d("notifci", "error occured");
-                    // TODO: 18.09.16 handle failed call
-                }
-        );
     }
 
     private void initView() {
@@ -106,10 +81,10 @@ public class YesNoActivity extends Activity {
             carouselView.setPageCount(item.getPictures().size());
             carouselView.setImageListener((position, imageView) ->
                     Glide.with(getApplication())
-                    .load(item.getPictures().get(position))
-                    .centerCrop()
-                    .placeholder(R.mipmap.imgres)
-                    .into(imageView));
+                            .load(item.getPictures().get(position))
+                            .centerCrop()
+                            .placeholder(R.mipmap.imgres)
+                            .into(imageView));
         }
 
         title_text.setText(item.getTitle());
@@ -119,7 +94,7 @@ public class YesNoActivity extends Activity {
         }
 
         Bundle extras = getIntent().getExtras();
-        String voteKey = extras == null ? null : (String)extras.get(Constants.KEY_VOTE_ID);
+        String voteKey = extras == null ? null : (String) extras.get(Constants.KEY_VOTE_ID);
 
         like.setOnClickListener(v -> {
             firebaseService.upVote(item.getAdvertisementId(), voteKey);

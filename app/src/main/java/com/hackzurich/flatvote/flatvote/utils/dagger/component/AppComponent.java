@@ -5,6 +5,7 @@ import com.hackzurich.flatvote.flatvote.MainActivity;
 import com.hackzurich.flatvote.flatvote.SelectFragment;
 import com.hackzurich.flatvote.flatvote.YesNoActivity;
 import com.hackzurich.flatvote.flatvote.base.BaseApplication;
+import com.hackzurich.flatvote.flatvote.firebase.AnotherFirebaseMessagingService;
 import com.hackzurich.flatvote.flatvote.firebase.InstanceIdService;
 import com.hackzurich.flatvote.flatvote.utils.dagger.module.RestModule;
 
@@ -31,6 +32,8 @@ public interface AppComponent {
     void inject(MainActivity mainActivity);
 
     void inject(InstanceIdService instanceIdService);
+
+    void inject(AnotherFirebaseMessagingService anotherFirebaseMessagingService);
 
     enum Holder {
 
