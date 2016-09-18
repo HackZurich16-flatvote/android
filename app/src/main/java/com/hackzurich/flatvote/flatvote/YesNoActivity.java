@@ -95,7 +95,7 @@ public class YesNoActivity extends Activity {
         }
 
         title_text.setText(item.getTitle());
-        price_text.setText("Preis: " + String.valueOf(item.getSellingPrice()));
+        price_text.setText("Preis: " + String.valueOf(item.getSellingPrice()) + " CHF");
         if (item.getNumberRooms() != null && item.getNumberRooms() <= 0.5) {
             roomnumber_text.setVisibility(View.GONE);
         } else {

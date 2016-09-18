@@ -17,6 +17,7 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,7 +29,8 @@
 
         <activity
             android:name="com.hackzurich.flatvote.flatvote.YesNoActivity"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="com.hackzurich.flatvote.flatvote.YesNoActivity" />
                 <category android:name="android.intent.category.DEFAULT" />
