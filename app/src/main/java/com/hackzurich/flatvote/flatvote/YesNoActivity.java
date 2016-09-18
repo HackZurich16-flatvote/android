@@ -96,10 +96,10 @@ public class YesNoActivity extends Activity {
 
         Bundle extras = getIntent().getExtras();
         String voteKey = extras == null ? null : (String)extras.get(Constants.KEY_VOTE_ID);
-        if (extras == null && extras.get(Constants.ITEM_NUMBER) != null) {
-            this.itemNumber = 0;
-        } else {
+        if (extras != null && extras.get(Constants.ITEM_NUMBER) != null) {
             this.itemNumber = (Integer) extras.get(Constants.ITEM_NUMBER);
+        } else {
+            this.itemNumber = 0;
         }
 
         like.setOnClickListener(v -> {
