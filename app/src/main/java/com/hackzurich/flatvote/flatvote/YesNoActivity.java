@@ -111,13 +111,18 @@ public class YesNoActivity extends Activity {
 
         title_text.setText(item.getTitle());
         description_text.setText(item.getDescription());
-        duration.setText(item.getTravelTimes().get(0)+"");
+
+        Float travelTime = null;
+        if (item.getTravelTimes().size() > 0) {
+            travelTime = item.getTravelTimes().get(0);
+        }
+        duration.setText(travelTime + "");
         like.setOnClickListener(v -> {
-            firebaseService.downVote(item.getAdvertisementId());
+            firebaseService.upVote(item.getAdvertisementId());
             reload();
         });
         dislike.setOnClickListener(v -> {
-            firebaseService.upVote(item.getAdvertisementId());
+            firebaseService.downVote(item.getAdvertisementId());
             reload();
         });
      //   initUIEffects();
