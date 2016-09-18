@@ -24,10 +24,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".YesNoActivity"
-            android:theme="@style/AppTheme.NoActionBar">
 
+
+        <activity android:name=".YesNoActivity">
+            <intent-filter>
+                <action android:name="com.hackzurich.flatvote.flatvote.YesNoActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
 
         </activity>
 

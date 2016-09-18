@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.media.RingtoneManager;
+import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -57,14 +58,15 @@ public class AnotherFirebaseMessagingService extends FirebaseMessagingService {
 
 // build notification
 // the addAction re-use the same intent to keep the example short
-        Notification n = new Notification.Builder(this)
-                .setContentTitle(messageBody)
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+        builder.setContentTitle(messageBody)
 //                .setContentText("Subject")
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentIntent(pIntent)
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
-                .setAutoCancel(true)
-                .build();
+                .setAutoCancel(true);
+
+        Notification n = builder.getNotification();
 
 
         NotificationManager notificationManager =

@@ -97,6 +97,7 @@ public class YesNoActivity extends Activity {
                     item = itemResponse.body();
                     initView();
                 }, throwable -> {
+            Log.d("notifci", "error occured");
                     // TODO: 18.09.16 handle failed call
                 }
         );

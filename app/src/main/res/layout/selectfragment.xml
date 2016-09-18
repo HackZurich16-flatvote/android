@@ -36,7 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textCapWords"
-                android:hint="Work:" />
+                android:hint="Worklocation:" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
