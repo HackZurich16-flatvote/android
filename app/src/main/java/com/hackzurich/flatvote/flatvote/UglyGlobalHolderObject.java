@@ -29,7 +29,7 @@ private UglyGlobalHolderObject(){
 
     public void addItems(List<Item> items){
         for (Item item : items) {
-            mItems.add(item);
+          addItem(item);
         }
     }
 
@@ -42,4 +42,8 @@ private UglyGlobalHolderObject(){
     }
 
     public final static String USER_ID = "userId";
+
+    public void addItem(Item item) {
+        mItems.add(item);
+    }
 }
