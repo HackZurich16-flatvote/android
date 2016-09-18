@@ -111,7 +111,9 @@ public class YesNoActivity extends Activity {
 
         title_text.setText(item.getTitle());
         description_text.setText(item.getDescription());
-        duration.setText("Ø " +item.getTravelTimes().get(0)+" Minuten");
+        if (item.getTravelTimes().size() > 0) {
+            duration.setText("Ø " + item.getTravelTimes().get(0) + " Minuten");
+        }
         like.setOnClickListener(v -> {
             firebaseService.upVote(item.getAdvertisementId());
             reload();
@@ -120,7 +122,7 @@ public class YesNoActivity extends Activity {
             firebaseService.downVote(item.getAdvertisementId());
             reload();
         });
-     //   initUIEffects();
+        //   initUIEffects();
     }
 
     private void reload() {
