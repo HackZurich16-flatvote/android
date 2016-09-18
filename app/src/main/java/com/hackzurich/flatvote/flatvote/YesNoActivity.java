@@ -97,7 +97,7 @@ public class YesNoActivity extends Activity {
                     item = itemResponse.body();
                     initView();
                 }, throwable -> {
-            Log.d("notifci", "error occured");
+                    Log.d("notifci", "error occured");
                     // TODO: 18.09.16 handle failed call
                 }
         );
@@ -134,11 +134,10 @@ public class YesNoActivity extends Activity {
         String preferredLocatipon = pref.getString(Constants.KEY_USERPREF, "Zuerich");
 
 
-        restService.getOfferingsWithDistanceCalculation(userName, String.valueOf(Constants.GPS_LAT_ZURICH), String.valueOf(Constants.GPS_LNG_ZURICH), preferredLocatipon).subscribe(new Action1<Response<FlatvoteMessageResponse>>() {
-            @Override
-            public void call(Response<FlatvoteMessageResponse> flatvoteMessageResponseResponse) {
-                UglyGlobalHolderObject.getInstance().addItems(flatvoteMessageResponseResponse.body().getItems());
-            }
+        restService.getOfferingsWithDistanceCalculation(userName, String.valueOf(Constants.GPS_LAT_ZURICH), String.valueOf(Constants.GPS_LNG_ZURICH), preferredLocatipon).subscribe(flatvoteMessageResponseResponse -> {
+            UglyGlobalHolderObject.getInstance().addItems(flatvoteMessageResponseResponse.body().getItems());
+        }, throwable -> {
+            Log.d("yesnoActivity", "onError", throwable);
         });
 
 
