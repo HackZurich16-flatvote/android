@@ -55,7 +55,8 @@ public class YesNoActivity extends Activity {
     View dislike;
 
 
-    private static Item item;
+    private Item item;
+    private Integer itemNumber = 0;
 
     public YesNoActivity() {
         super();
@@ -94,7 +95,8 @@ public class YesNoActivity extends Activity {
         }
 
         Bundle extras = getIntent().getExtras();
-        String voteKey = extras == null ? null : (String) extras.get(Constants.KEY_VOTE_ID);
+        String voteKey = extras == null ? null : (String)extras.get(Constants.KEY_VOTE_ID);
+        this.itemNumber = extras == null ? 0 : (Integer) extras.get(Constants.ITEM_NUMBER);
 
         like.setOnClickListener(v -> {
             firebaseService.upVote(item.getAdvertisementId(), voteKey);
@@ -112,18 +114,19 @@ public class YesNoActivity extends Activity {
 
         String userName = ((BaseApplication) getApplication()).username;
         SharedPreferences pref = this.getSharedPreferences(Constants.KEY_SHAREDPREFERENCES, MODE_PRIVATE);
-        String preferredLocatipon = pref.getString(Constants.KEY_USERPREF, "Zuerich");
+        String preferredLocation = pref.getString(Constants.KEY_USERPREF, "Zuerich");
 
-
-        restService.getOfferingsWithDistanceCalculation(userName, String.valueOf(Constants.GPS_LAT_ZURICH), String.valueOf(Constants.GPS_LNG_ZURICH), preferredLocatipon).subscribe(flatvoteMessageResponseResponse -> {
-            UglyGlobalHolderObject.getInstance().addItems(flatvoteMessageResponseResponse.body().getItems());
-        }, throwable -> {
-            Log.d("yesnoActivity", "onError", throwable);
-        });
-
+        if (this.itemNumber % 2 == 0) {
+            restService.getOfferingsWithDistanceCalculation(userName, String.valueOf(Constants.GPS_LAT_ZURICH), String.valueOf(Constants.GPS_LNG_ZURICH), preferredLocation, this.itemNumber / 2 + 1).subscribe(flatvoteMessageResponseResponse -> {
+                UglyGlobalHolderObject.getInstance().addItems(flatvoteMessageResponseResponse.body().getItems());
+            }, throwable -> {
+                Log.d("yesnoActivity", "onError", throwable);
+            });
+        }
 
         Intent intent = new Intent(this, YesNoActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.putExtra(Constants.ITEM_NUMBER, this.itemNumber + 1);
         startActivity(intent);
     }
 

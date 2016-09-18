@@ -83,7 +83,7 @@ public class SelectFragment extends Fragment {
             MainActivity mainActivity = (MainActivity) getActivity();
             mainActivity.showWaitingScreen();
             String userName = ((BaseApplication) getActivity().getApplication()).username;
-            restService.getOfferingsWithDistanceCalculation(userName, lat, lng, place).subscribe(
+            restService.getOfferingsWithDistanceCalculation(userName, lat, lng, place, 0).subscribe(
                     flatvoteMessageResponseResponse -> {
                         mainActivity.dismissWaitingScreen();
 
