@@ -16,21 +16,19 @@ public class UglyGlobalHolderObject {
     private final static UglyGlobalHolderObject INSTANCE = new UglyGlobalHolderObject();
 
 
-private UglyGlobalHolderObject(){
-    // whop whop its aaaaaa singleton!!!
-}
+    private UglyGlobalHolderObject(){
+        // whop whop its aaaaaa singleton!!!
+    }
     public static UglyGlobalHolderObject getInstance() {
         return INSTANCE;
     }
 
-    public HashMap<String,String> getMap(){
+    public HashMap<String, String> getMap() {
         return map;
     }
 
     public void addItems(List<Item> items){
-        for (Item item : items) {
-          addItem(item);
-        }
+        items.forEach(this::addItem);
     }
 
     public Item getNextItem(){
