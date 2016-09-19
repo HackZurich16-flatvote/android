@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "77073188320",
+    "firebase_url": "https://flatvote.firebaseio.com",
+    "project_id": "flatvote",
+    "storage_bucket": "flatvote.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:77073188320:android:ece4be956aa52a69",
+        "android_client_info": {
+          "package_name": "com.hackzurich.flatvote.flatvote"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "77073188320-qoqg2n3m65hmofhk83ot4bs3rppsjj6t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hackzurich.flatvote.flatvote",
+            "certificate_hash": "B26B146FA33DB81926B6E7CD34657A0DA8E57185"
+          }
+        },
+        {
+          "client_id": "77073188320-ub8mtv68lqkdc6f6cc9a9d8l0kpujp0k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXlfE5H8RIsDIjMPRglTYc2eovbC_YOho"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "77073188320-ub8mtv68lqkdc6f6cc9a9d8l0kpujp0k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
